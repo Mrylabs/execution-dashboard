@@ -46,6 +46,14 @@ export default function Home() {
           >
             Login
           </Link>
+
+          <Link
+            href="/login"
+            className="text-blue-600 underline"
+          >
+            Go to Login
+          </Link>
+
         </div>
       </main>
     </div>
