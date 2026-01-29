@@ -1,8 +1,3 @@
 export default function DashboardPage() {
-  return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Dashboard</h1>
-      <p>You are logged in.</p>
-    </main>
-  );
+  return  <h1>Dashboard Overview</h1>;
 }
