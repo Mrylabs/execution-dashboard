@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { isLoggedIn, logout } from "@/lib/auth";
+import { usePathname } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -11,6 +12,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
@@ -33,23 +35,46 @@ export default function DashboardLayout({
       </h2>
 
       <nav className="flex flex-col gap-3">
-        <Link
+       <Link
           href="/dashboard"
-          className="text-gray-700 hover:text-blue-600 transition-colors"
+          className={`px-3 py-2 rounded-md transition-colors ${
+            pathname === "/dashboard"
+              ? "bg-blue-50 text-blue-600 font-medium"
+              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          }`}
         >
           Overview
         </Link>
 
         <Link
           href="/dashboard/tasks"
-          className="text-gray-700 hover:text-blue-600 transition-colors"
+          className={`px-3 py-2 rounded-md transition-colors ${
+            pathname === "/dashboard/tasks"
+              ? "bg-blue-50 text-blue-600 font-medium"
+              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          }`}
         >
           Tasks
         </Link>
 
         <Link
+          href="/dashboard/habits"
+          className={`px-3 py-2 rounded-md transition-colors ${
+            pathname === "/dashboard/habits"
+              ? "bg-blue-50 text-blue-600 font-medium"
+              : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+          }`}
+        >
+          Habits
+        </Link>
+
+        <Link
           href="/dashboard/settings"
-          className="text-gray-700 hover:text-blue-600 transition-colors"
+            className={`px-3 py-2 rounded-md transition-colors ${
+              pathname === "/dashboard/settings"
+                ? "bg-blue-50 text-blue-600 font-medium"
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            }`}
         >
           Settings
         </Link>
