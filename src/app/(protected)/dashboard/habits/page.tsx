@@ -17,20 +17,26 @@ export default function HabitsPage() {
     <div>
       <h1 className="text-2xl font-semibold mb-6">Habits</h1>
 
-      <div className="flex gap-2 mb-6">
+    <form  onSubmit={(e) => {
+        e.preventDefault();
+        if (!newHabit.trim()) return;
+        handleAdd();
+        }}
+
+        className="flex gap-2 mb-6" >
         <input
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
           placeholder="Add a new habit..."
           className="border border-gray-300 rounded-md px-3 py-2 w-full"
         />
-        <button
-          onClick={handleAdd}
-          className="bg-blue-600 text-white px-4 py-2 rounded-md"
-        >
-          Add
+       <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded-md"
+            >
+            Add
         </button>
-      </div>
+    </form>
 
       <div className="space-y-3">
         {habits.map((habit) => {
