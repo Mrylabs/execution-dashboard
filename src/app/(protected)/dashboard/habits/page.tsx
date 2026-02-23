@@ -6,7 +6,7 @@ import HabitItem from "@/components/habits/HabitItem";
 
 
 export default function HabitsPage() {
-  const { habits, addHabit, completeHabit } = useHabits();
+  const { habits, addHabit, completeHabit, deleteHabit } = useHabits();
   const [newHabit, setNewHabit] = useState("");
 
   function handleAdd() {
@@ -46,9 +46,16 @@ export default function HabitsPage() {
           key={habit.id}
           habit={habit}
           onComplete={completeHabit}
+          onDelete={deleteHabit}
         />
         ))}
       </div>
+
+      {habits.length === 0 && (
+        <p className="text-gray-500 text-sm mt-4">
+          No habits yet. Start building momentum.
+        </p>
+      )}
     </div>
   );
 }

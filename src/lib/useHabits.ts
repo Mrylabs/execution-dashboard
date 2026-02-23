@@ -60,10 +60,15 @@ export function useHabits() {
     return habits.filter((h) => h.lastCompletedDate === today).length;
   }
 
+  function deleteHabit(id: string) {
+  setHabits((prev) => prev.filter((habit) => habit.id !== id));
+  }
+
   return {
     habits,
     addHabit,
     completeHabit,
+    deleteHabit,
     completedTodayCount,
   };
 }
