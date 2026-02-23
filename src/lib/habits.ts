@@ -1,7 +1,9 @@
 export type Habit = {
   id: string;
   name: string;
-  completedDates: string[];
+  createdAt: string;
+  lastCompletedDate: string | null;
+  currentStreak: number;
 };
 
 const STORAGE_KEY = "habits";
