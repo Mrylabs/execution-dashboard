@@ -1,55 +1,48 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { isLoggedIn, logout } from "@/lib/auth";
+import { logout } from "@/lib/auth";
+import Link from "next/link";
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setLoggedIn(isLoggedIn());
-    setMounted(true);
-  }, []);
 
   function handleLogout() {
     logout();
-    setLoggedIn(false);
-    router.push("/");
+    router.replace("/login");
   }
 
-  if (!mounted) return null;
-
   return (
-    <nav className="flex items-center justify-between px-6 py-4 border-b">
-      <Link href="/" className="font-semibold">
+    <div className="h-14 px-6 flex items-center justify-between border-b bg-white">
+      <h1 className="font-semibold text-gray-900">
         Productivity Dashboard
-      </Link>
+      </h1>
 
-      <div className="flex items-center gap-4">
-        {!loggedIn && (
-          <Link href="/login" className="text-sm">
-            Login
-          </Link>
-        )}
+      <div className="relative">
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-8 h-8 rounded-full bg-gray-300"
+        />
 
-        {loggedIn && (
-          <>
-            <Link href="/dashboard" className="text-sm">
-              Dashboard
+        {open && (
+          <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md border">
+            <Link
+              href="/dashboard/settings"
+              className="block px-4 py-2 hover:bg-gray-100"
+            >
+              Settings
             </Link>
             <button
               onClick={handleLogout}
-              className="text-sm text-red-600"
+              className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
             >
               Logout
             </button>
-          </>
+          </div>
         )}
       </div>
-    </nav>
+    </div>
   );
 }
