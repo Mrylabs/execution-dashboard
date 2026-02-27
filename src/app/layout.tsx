@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Productivity Dashboard",
+  title: "Execution Dashboard",
   description: "Personal execution system",
 };
 

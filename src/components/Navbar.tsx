@@ -15,12 +15,9 @@ export default function Navbar() {
   }
 
   return (
-    <div className="h-14 px-6 flex items-center justify-between border-b bg-white">
-      <h1 className="font-semibold text-gray-900">
-        Productivity Dashboard
-      </h1>
+    <div className="h-14 px-6 flex items-center border-b bg-white">
 
-      <div className="relative">
+      <div className="relative ml-auto">
         <button
           onClick={() => setOpen(!open)}
           className="w-8 h-8 rounded-full bg-gray-300"

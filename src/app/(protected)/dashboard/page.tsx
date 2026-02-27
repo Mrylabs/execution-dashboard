@@ -1,6 +1,6 @@
 "use client";
 import { useHabits } from "@/lib/useHabits";
-import SummaryCard from "@/components/overview/SummaryCard";
+import SummaryCard from "@/components/Today/SummaryCard";
 import { useTasks }  from "@/lib/useTasks"; 
 
 export default function DashboardPage() {
@@ -15,7 +15,7 @@ export default function DashboardPage() {
   return (
     <section>
       <header>
-        <h1>Overview</h1>
+        <h1>Today</h1>
         <p>Monday, Feb 9</p>
       </header>
 
@@ -32,7 +32,6 @@ export default function DashboardPage() {
               : `${completedHabits} of ${totalHabits} today`
           }
         />
-        <SummaryCard title="Notes" value="coming soon" />
       </section>
     </section>
   );

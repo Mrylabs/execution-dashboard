@@ -1,48 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Execution Dashboard
 
-# Personal Productivity Dashboard
+A structured personal execution system built with Next.js App Router and TypeScript.
 
-A personal productivity dashboard built with Next.js App Router.
-This project focuses on layout-based routing, authentication flow,
-and persistent task management.
+This project explores how daily execution can be modeled using explicit state transitions, lifecycle-aware logic, and identity-based tracking rather than simple task lists.
 
-## Features
+It is designed as an execution interface, not a planning tool.
 
-- Public and protected routes using layout-based auth guards
-- Authentication flow (login / logout)
-- Dashboard shell with sidebar navigation
-- Tasks v1:
-  - Add tasks
-  - Toggle completion
-  - Persist state across page refresh
+---
+
+## Philosophy
+
+The system is built around three principles:
+
+- Execution over planning  
+- Identity over perfection  
+- Informing over punishing  
+
+Instead of focusing on streak pressure, the dashboard emphasizes weekly consistency, explicit daily logs, and neutral feedback loops.
+
+---
+
+## Implemented
+
+### Authentication & Routing
+- Public and protected routes
+- Layout-based route guards
+- Login / logout flow
+- Persistent dashboard shell
+
+### Task Layer (Execution v1)
+- Add and complete tasks
+- Persistent state
+- Clear separation of daily execution
+
+### Habit Engine (Consistency Model v2)
+- Explicit daily logs (no hidden gaps)
+- Monday-based weekly reset
+- Weekly completion tracking (Mon–Sun)
+- Total completion counter
+- Neutral reporting for missed days
+
+---
+
+## In Progress
+
+### Structured Domain Engine
+
+A versioned, rotating domain system for modeling structured routines such as training cycles or life maintenance blocks.
+
+This engine introduces:
+- Block-based lifecycle modeling
+- Server-driven daily session generation
+- Immutable daily snapshots
+- Identity continuity across block upgrades
+
+---
 
 ## Tech Stack
 
 - Next.js (App Router)
 - React
 - TypeScript
-- Client-side state management
-- Local storage for persistence (v1)
+- Server-driven logic (in progress)
+- Database persistence (migration underway)
 
-## Project Status
+---
 
-🚧 v1 complete  
-Planned improvements:
-- Backend persistence
-- Real authentication
-- AI-assisted features
-- Performance and UX polish
+## Architectural Goals
 
-## Getting Started
+This project focuses on:
 
-```bash
-npm install
-npm run dev
+- Template vs instance separation
+- Time-based derived state
+- Weekly analytical reporting
+- Lifecycle versioning
+- Behavioral UX design
 
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
+The long-term direction is a modular execution system capable of modeling real-world structured domains such as deep work, training, and life routines.
