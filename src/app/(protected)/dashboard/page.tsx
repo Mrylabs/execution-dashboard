@@ -87,20 +87,19 @@ export default function DashboardPage() {
   const totalHabits = habits.length;
   const completedHabits = completedTodayCount();
 
-  const todayLabel = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "short",
-    day: "numeric",
-  }).format(new Date());
+  const activeTasks = tasks.filter((task) => !task.completed);
+  const focusTasks = activeTasks.slice(0, 2);
 
   return (
     <section className="max-w-4xl space-y-8">
+      {/* Header */}
       <header>
-        <h1 className="mt-2 text-3xl font-semibold text-gray-900">
+        <h1 className="text-3xl font-semibold text-gray-900">
           Execution Overview
         </h1>
       </header>
 
+      {/* Summary */}
       <section className="grid gap-6 md:grid-cols-2">
         <SummaryCard
           title="Tasks"
@@ -113,6 +112,30 @@ export default function DashboardPage() {
           value={totalHabits === 0 ? "0/0" : `${completedHabits}/${totalHabits}`}
           subtitle={totalHabits === 0 ? "no habits yet" : "completed today"}
         />
+      </section>
+
+      {/* Today's Focus */}
+      <section className="space-y-4">
+        <h2 className="text-sm font-medium text-gray-500">
+          Today’s Focus
+        </h2>
+
+        {focusTasks.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-6 text-sm text-gray-500">
+            No active tasks. Add one from Tasks to get started.
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {focusTasks.map((task) => (
+              <div
+                key={task.id}
+                className="rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 shadow-sm"
+              >
+                {task.title}
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </section>
   );
