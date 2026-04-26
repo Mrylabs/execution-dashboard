@@ -99,7 +99,6 @@ export default function DashboardPage() {
         <h1 className="mt-2 text-3xl font-semibold text-gray-900">
           Execution Overview
         </h1>
-        <p className="mt-2 text-gray-500">{todayLabel}</p>
       </header>
 
       <section className="grid gap-6 md:grid-cols-2">
