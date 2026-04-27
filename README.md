@@ -82,7 +82,7 @@ The UI is intentionally minimal to reduce friction and cognitive load.
 ---
 
 ## 🚀 Getting Started
-```
+```bash
 npm install
 npm run dev
 ```
@@ -104,5 +104,3 @@ This project was built to explore how daily execution can be structured through:
 - State modeling
 - Interaction design
 - Consistency tracking
-
-It also demonstrates practical frontend engineering with a product mindset, focusing on maintainable architecture, user behavior, and iterative feature development.
