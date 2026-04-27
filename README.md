@@ -85,7 +85,6 @@ The UI is intentionally minimal to reduce friction and cognitive load.
 
 ## 🚀 Getting Started
 
-```bash
 npm install
 npm run dev
 
