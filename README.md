@@ -88,3 +88,24 @@ The UI is intentionally minimal to reduce friction and cognitive load.
 ```bash
 npm install
 npm run dev
+
+---
+
+## Future Improvements
+
+- Real authentication with JWT and backend integration
+- Cloud sync instead of localStorage
+- Weekly analytics view
+- AI-assisted insights
+
+---
+
+## Why This Project
+
+This project was built to explore how daily execution can be structured through:
+
+- State modeling
+- Interaction design
+- Consistency tracking
+
+It also demonstrates practical frontend engineering with a product mindset, focusing on maintainable architecture, user behavior, and iterative feature development.
