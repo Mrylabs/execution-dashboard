@@ -27,7 +27,6 @@ export default function DashboardLayout({
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-200 px-6 py-8 shadow-sm">
         <h2 className="mb-8 text-xl font-semibold text-gray-900">
           Execution Dashboard
@@ -69,7 +68,6 @@ export default function DashboardLayout({
         </nav>
       </aside>
 
-      {/* Right side */}
       <div className="flex flex-col flex-1 overflow-hidden">
         <Navbar />
 

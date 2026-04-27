@@ -12,18 +12,24 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black">
-      <div className="w-full max-w-sm rounded-lg border border-black/[.1] bg-white p-8 shadow-sm dark:border-white/[.15] dark:bg-black">
-        <h1 className="mb-6 text-xl font-semibold text-black dark:text-zinc-50">
-          Login
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-black">
+      <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900">
+        
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          Welcome back
         </h1>
+
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+          Continue to your execution dashboard.
+        </p>
 
         <button
           onClick={handleLogin}
-          className="flex h-12 w-full items-center justify-center rounded-md bg-black text-white transition hover:bg-zinc-800 dark:bg-zinc-50 dark:text-black dark:hover:bg-zinc-200"
+          className="mt-6 w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200"
         >
           Continue
         </button>
+
       </div>
     </div>
   );

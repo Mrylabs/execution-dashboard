@@ -9,58 +9,59 @@ type HabitItemProps = {
   onDelete: (id: string) => void;
 };
 
-export default function HabitItem({ habit, onComplete, onDelete }: HabitItemProps) {
+export default function HabitItem({
+  habit,
+  onComplete,
+  onDelete,
+}: HabitItemProps) {
   const today = getTodayDateString();
   const isCompletedToday = habit.lastCompletedDate === today;
 
   return (
     <div
-      className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 ${
+      className={`group flex items-center justify-between rounded-2xl border bg-white px-4 py-4 shadow-sm transition ${
         isCompletedToday
-          ? "bg-green-50 border-green-100 animate-pulse"
-          : "bg-white border-gray-200 hover:border-gray-300"
+          ? "border-green-100 bg-green-50"
+          : "border-gray-200 hover:shadow-md"
       }`}
     >
-      {/* Left side: Name + streak */}
       <div className="flex items-center gap-3">
         <span
-          className={`font-medium ${
-            isCompletedToday
-              ? "line-through text-gray-400"
-              : "text-gray-900"
+          className={`text-sm font-medium ${
+            isCompletedToday ? "text-gray-400 line-through" : "text-gray-900"
           }`}
         >
           {habit.name}
         </span>
 
         {habit.currentStreak > 0 && (
-          <span className="text-sm font-medium text-orange-500">
+          <span className="rounded-full bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-600">
             🔥 {habit.currentStreak}
           </span>
         )}
       </div>
 
-      {/* Right side: Button */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
         <button
-            disabled={isCompletedToday}
-            onClick={() => onComplete(habit.id)}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${
+          disabled={isCompletedToday}
+          onClick={() => onComplete(habit.id)}
+          className={`rounded-xl px-4 py-2 text-xs font-medium transition ${
             isCompletedToday
-                ? "bg-green-100 text-green-700 cursor-default"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
+              ? "bg-green-100 text-green-700"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }`}
         >
-            {isCompletedToday ? "Completed" : "Mark done"}
+          {isCompletedToday ? "Completed" : "Mark done"}
         </button>
 
         <button
-            onClick={() => onDelete(habit.id)}
-            className="text-sm text-gray-400 hover:text-red-500 transition"
+          type="button"
+          onClick={() => onDelete(habit.id)}
+          className="text-xs text-gray-400 opacity-0 transition hover:text-red-500 group-hover:opacity-100"
         >
-            ✕
+          Delete
         </button>
-        </div>
+      </div>
     </div>
   );
 }
