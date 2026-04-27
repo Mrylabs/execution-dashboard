@@ -51,26 +51,24 @@ The UI is intentionally minimal to reduce friction and cognitive load.
 
 ## 📸 Screenshots
 
-### Dashboard
-![Dashboard](/screenshots/dashboard.png)
-
-### Tasks (Active)
-![Tasks Active](/screenshots/tasks-active.png)
-
-### Tasks (Completed)
-![Tasks Completed](/screenshots/tasks-completed.png)
-
-### Habits
-![Habits](/screenshots/habits.png)
-
 ### Landing
-![Landing](/screenshots/landing.png)
+![Landing](public/screenshots/landing.png)
 
 ### Login
-![Login](/screenshots/login.png)
+![Login](public/screenshots/login.png)
+
+### Dashboard
+![Dashboard](public/screenshots/dashboard.png)
+
+### Tasks
+![Tasks Active](public/screenshots/tasks-active.png)
+![Tasks Completed](public/screenshots/tasks-completed.png)
+
+### Habits
+![Habits](public/screenshots/habits.png)
 
 ### Settings
-![settings](/screenshots/settings.png)
+![Settings](public/screenshots/settings.png)
 
 ---
 
@@ -84,10 +82,10 @@ The UI is intentionally minimal to reduce friction and cognitive load.
 ---
 
 ## 🚀 Getting Started
-
+```
 npm install
 npm run dev
-
+```
 ---
 
 ## Future Improvements
