@@ -3,6 +3,11 @@
 A structured personal execution system built with Next.js and TypeScript.
 
 This project models daily execution through explicit state, consistency tracking, and clean interaction design — focusing on doing, not planning.
+<p align="center">
+  <a href="https://github.com/Mrylabs/execution-dashboard">
+    <img src="https://raw.githubusercontent.com/Mrylabs/execution-dashboard/main/public/screenshots/dashboard.png" width="550" />
+  </a>
+</p>
 
 ---
 
