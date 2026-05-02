@@ -1,16 +1,18 @@
 # Execution Dashboard
 ## 🚀 Live Demo
 
-👉 https://execution-dashboard-kappa.vercel.app/
+👉 **Open the Live App**: https://execution-dashboard-kappa.vercel.app/
 
-Try the dashboard:
+> Built to model real execution behavior — not just tasks, but consistency and daily action.
+
+### Try the dashboard:
 - Login (mock auth)
 - Add tasks
 - Track habits
-- Explore weekly consistency
+- Refresh and see local persistence
 
-A structured personal execution system built with Next.js and TypeScript.
 > Note: This is a frontend-first version using localStorage for persistence.
+A structured execution system built with Next.js and TypeScript, focused on modeling real user behavior through explicit state and persistence.
 
 This project models daily execution through explicit state, consistency tracking, and clean interaction design — focusing on doing, not planning.
 <p align="center">
@@ -36,9 +38,9 @@ This project models daily execution through explicit state, consistency tracking
 
 ### 🔁 Habit Tracking
 - Daily habit completion
-- Streak tracking 🔥
+- Streak tracking
+- Prevents duplicate completion on the same day
 - Visual feedback for completion
-- Clean interaction model
 
 ### ⚙️ Settings
 - Basic profile display
@@ -47,6 +49,16 @@ This project models daily execution through explicit state, consistency tracking
 ### 🔐 Authentication
 - Lightweight demo login/logout
 - Protected routes
+
+---
+
+## Engineering Highlights
+
+- Structured routing using Next.js App Router with layout-based protection
+- Implemented lightweight auth with route guards (frontend prototype)
+- Built custom hooks for task and habit state management
+- Modeled execution using explicit state and persistent storage
+- Designed reusable UI components for scalable interface structure
 
 ---
 
@@ -61,6 +73,7 @@ It is an **execution system**.
 - Visibility over pressure  
 
 The UI is intentionally minimal to reduce friction and cognitive load.
+The goal is not to track tasks, but to make execution visible and measurable.
 
 ---
 
