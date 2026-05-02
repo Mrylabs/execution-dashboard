@@ -1,6 +1,16 @@
 # Execution Dashboard
+## 🚀 Live Demo
+
+👉 https://execution-dashboard-kappa.vercel.app/
+
+Try the dashboard:
+- Login (mock auth)
+- Add tasks
+- Track habits
+- Explore weekly consistency
 
 A structured personal execution system built with Next.js and TypeScript.
+> Note: This is a frontend-first version using localStorage for persistence.
 
 This project models daily execution through explicit state, consistency tracking, and clean interaction design — focusing on doing, not planning.
 <p align="center">
