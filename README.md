@@ -1,4 +1,4 @@
-# Execution Dashboard
+# Execution Dashboard (Desktop Demo)
 ## 🚀 Live Demo
 
 👉 **Open the Live App**: https://execution-dashboard-kappa.vercel.app/
@@ -13,7 +13,7 @@
 
 > Note: This is a frontend-first version using localStorage for persistence.
 A structured execution system built with Next.js and TypeScript, focused on modeling real user behavior through explicit state and persistence.
-
+Best viewed on desktop. Mobile responsiveness is planned for the next iteration.
 This project models daily execution through explicit state, consistency tracking, and clean interaction design — focusing on doing, not planning.
 <p align="center">
   <a href="https://github.com/Mrylabs/execution-dashboard">
