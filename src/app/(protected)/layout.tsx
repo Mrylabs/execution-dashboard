@@ -25,55 +25,62 @@ export default function DashboardLayout({
 
   if (!checked) return null;
 
+  const navLinks = [
+    { href: "/dashboard", label: "Today" },
+    { href: "/dashboard/tasks", label: "Tasks" },
+    { href: "/dashboard/habits", label: "Habits" },
+  ];
+
   return (
-    <div className="flex h-screen bg-gray-50">
-      <aside className="w-64 bg-white border-r border-gray-200 px-6 py-8 shadow-sm">
+    <div className="min-h-screen bg-gray-50 md:flex">
+      {/* Desktop sidebar */}
+      <aside className="hidden w-64 border-r border-gray-200 bg-white px-6 py-8 shadow-sm md:block">
         <h2 className="mb-8 text-xl font-semibold text-gray-900">
           Execution Dashboard
         </h2>
 
         <nav className="flex flex-col gap-3">
-          <Link
-            href="/dashboard"
-            className={`px-3 py-2 rounded-md transition-colors ${
-              pathname === "/dashboard"
-                ? "bg-blue-50 text-blue-600 font-medium"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            }`}
-          >
-            Today
-          </Link>
-
-          <Link
-            href="/dashboard/tasks"
-            className={`px-3 py-2 rounded-md transition-colors ${
-              pathname === "/dashboard/tasks"
-                ? "bg-blue-50 text-blue-600 font-medium"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            }`}
-          >
-            Tasks
-          </Link>
-
-          <Link
-            href="/dashboard/habits"
-            className={`px-3 py-2 rounded-md transition-colors ${
-              pathname === "/dashboard/habits"
-                ? "bg-blue-50 text-blue-600 font-medium"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            }`}
-          >
-            Habits
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`rounded-md px-3 py-2 transition-colors ${
+                pathname === link.href
+                  ? "bg-blue-50 font-medium text-blue-600"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
       </aside>
 
-      <div className="flex flex-col flex-1 overflow-hidden">
+      <div className="flex min-h-screen flex-1 flex-col">
         <Navbar />
 
-        <main className="flex-1 overflow-y-auto p-10 text-gray-600">
+        <main className="flex-1 overflow-y-auto px-4 py-6 pb-24 text-gray-600 sm:px-6 md:p-10">
           {children}
         </main>
+
+        {/* Mobile bottom nav */}
+        <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-3 shadow-sm md:hidden">
+          <div className="mx-auto flex max-w-md justify-around">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`rounded-xl px-4 py-2 text-sm transition-colors ${
+                  pathname === link.href
+                    ? "bg-blue-50 font-medium text-blue-600"
+                    : "text-gray-600"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </nav>
       </div>
     </div>
   );
