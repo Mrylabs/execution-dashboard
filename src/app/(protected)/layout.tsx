@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { isLoggedIn } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 import Navbar from "@/components/Navbar";
 
 export default function DashboardLayout({
@@ -16,11 +16,15 @@ export default function DashboardLayout({
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    if (!isLoggedIn()) {
-      router.replace("/login");
-    } else {
-      setChecked(true);
-    }
+    (async () => {
+      const user = await getCurrentUser();
+
+      if (!user) {
+        router.replace("/login");
+      } else {
+        setChecked(true);
+      }
+    })();
   }, [router]);
 
   if (!checked) return null;
