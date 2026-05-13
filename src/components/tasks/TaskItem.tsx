@@ -2,7 +2,7 @@ import { Task } from "@/lib/tasks";
 
 type TaskItemProps = {
   task: Task;
-  onToggle: (id: string) => void;
+  onToggle: (task: Task) => void;
   onDelete: (id: string) => void;
 };
 
@@ -23,7 +23,7 @@ export default function TaskItem({
         <input
           type="checkbox"
           checked={task.completed}
-          onChange={() => onToggle(task.id)}
+          onChange={() => onToggle(task)}
           className="mt-1 h-4 w-4"
         />
 
@@ -39,7 +39,7 @@ export default function TaskItem({
       <button
         type="button"
         onClick={() => onDelete(task.id)}
-        className="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition hover:text-red-500 group-hover:opacity-100"
+        className="text-xs text-gray-400 opacity-0 transition hover:text-red-500 group-hover:opacity-100"
       >
         Delete
       </button>
