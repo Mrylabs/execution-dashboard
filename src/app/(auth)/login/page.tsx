@@ -1,28 +1,45 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { signIn } from "@/lib/auth";
+import { useState, FormEvent } from "react";
+import { signIn, signUp } from "@/lib/auth";
 
 export default function LoginPage() {
   const router = useRouter();
 
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  async function handleLogin(e?: React.FormEvent) {
-    e?.preventDefault();
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setError(null);
+    setSuccess(null);
 
-    const result = await signIn(email, password);
+    if (mode === "signin") {
+      const { error } = await signIn(email, password);
 
-    if ((result as any).error) {
-      setError((result as any).error.message || "Login failed");
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      router.push("/dashboard");
       return;
     }
 
-    router.push("/dashboard");
+    const { error } = await signUp(email, password);
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    setSuccess("Account created. Please check your email, then sign in.");
+    setMode("signin");
+    setPassword("");
   }
 
   return (
@@ -30,14 +47,16 @@ export default function LoginPage() {
       <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-white/10 dark:bg-zinc-900">
         
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-          Welcome back
+          {mode === "signin" ? "Welcome back" : "Create an account"}
         </h1>
 
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          Continue to your execution dashboard.
+          {mode === "signin"
+            ? "Continue to your execution dashboard."
+            : "Create an account to access the execution dashboard."}
         </p>
 
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
           <label className="block mt-4">
             <span className="text-sm text-gray-500">Email</span>
             <input
@@ -64,13 +83,45 @@ export default function LoginPage() {
             <p className="mt-3 text-sm text-red-500">{error}</p>
           )}
 
+          {success && (
+            <p className="mt-3 text-sm text-green-600">{success}</p>
+          )}
+
           <button
             type="submit"
             className="mt-6 w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200"
           >
-            Continue
+            {mode === "signin" ? "Continue" : "Create account"}
           </button>
         </form>
+
+        <div className="mt-4 text-center">
+          {mode === "signin" ? (
+            <button
+              type="button"
+              onClick={() => {
+                setError(null);
+                setSuccess(null);
+                setMode("signup");
+              }}
+              className="text-sm text-gray-500 hover:underline"
+            >
+              Need an account? Create one
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                setError(null);
+                setSuccess(null);
+                setMode("signin");
+              }}
+              className="text-sm text-gray-500 hover:underline"
+            >
+              Already have an account? Sign in
+            </button>
+          )}
+        </div>
 
       </div>
     </div>
