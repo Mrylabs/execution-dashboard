@@ -6,13 +6,14 @@ import HabitItem from "@/components/habits/HabitItem";
 
 
 export default function HabitsPage() {
-  const { habits, addHabit, completeHabit, deleteHabit } = useHabits();
+  const { habits, loading, error, addHabit, deleteHabit, toggleHabitToday, completedTodayHabitIds } = useHabits();
   const [newHabit, setNewHabit] = useState("");
 
-  function handleAdd() {
+  async function handleAdd() {
     if (!newHabit.trim()) return;
-    addHabit(newHabit);
-    setNewHabit("");
+    await addHabit(newHabit);
+    // Clear input only if no error
+    if (!error) setNewHabit("");
   }
 
   return (
@@ -46,7 +47,13 @@ export default function HabitsPage() {
         </button>
       </form>
 
-      {habits.length === 0 ? (
+      {loading ? (
+        <div className="rounded-2xl border border-gray-300 bg-white p-8 text-center">Loading habits...</div>
+      ) : error ? (
+        <div className="rounded-2xl border border-red-300 bg-white p-8 text-center">
+          <p className="text-sm font-medium text-red-600">{error}</p>
+        </div>
+      ) : habits.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center">
           <p className="text-sm font-medium text-gray-900">No habits yet</p>
           <p className="mt-2 text-sm text-gray-500">
@@ -55,14 +62,18 @@ export default function HabitsPage() {
         </div>
       ) : (
         <div className="space-y-3">
-          {habits.map((habit) => (
-            <HabitItem
-              key={habit.id}
-              habit={habit}
-              onComplete={completeHabit}
-              onDelete={deleteHabit}
-            />
-          ))}
+          {habits.map((habit) => {
+            const completedToday = completedTodayHabitIds.has(habit.id);
+            return (
+              <HabitItem
+                key={habit.id}
+                habit={habit}
+                completedToday={completedToday}
+                onToggle={toggleHabitToday}
+                onDelete={deleteHabit}
+              />
+            );
+          })}
         </div>
       )}
     </section>
