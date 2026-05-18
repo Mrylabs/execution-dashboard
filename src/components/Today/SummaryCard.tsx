@@ -10,12 +10,20 @@ export default function SummaryCard({
   subtitle,
 }: SummaryCardProps) {
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md hover:scale-[1.01]">
-      <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+    <section className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+      <h3 className="text-sm font-medium text-gray-500">
+        {title}
+      </h3>
 
-      <p className="mt-3 text-4xl font-bold text-gray-900">{value}</p>
+      <p className="mt-2 text-3xl font-bold text-gray-900 md:mt-3 md:text-4xl">
+        {value}
+      </p>
 
-      {subtitle && <p className="mt-2 text-sm text-gray-500">{subtitle}</p>}
+      {subtitle && (
+        <p className="mt-1 text-xs text-gray-500 md:mt-2 md:text-sm">
+          {subtitle}
+        </p>
+      )}
     </section>
   );
 }
