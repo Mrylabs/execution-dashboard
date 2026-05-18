@@ -1,5 +1,6 @@
 import type { Habit, HabitLog } from "@/types/habit";
 
+export const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 export function getCurrentWeekDates() {
   const today = new Date();
   const day = today.getDay();
@@ -64,4 +65,60 @@ export function getWeeklyCompletionPercentage(
   ).length;
 
   return Math.round((completedThisWeek / totalPossibleCompletions) * 100);
+}
+
+export function isHabitCompletedOnDate(
+  habitId: string,
+  date: string,
+  habitLogs: HabitLog[]
+) {
+  return habitLogs.some(
+    (log) => log.habit_id === habitId && log.completed_date === date
+  );
+}
+
+export function getDailyScores(habits: Habit[], habitLogs: HabitLog[]) {
+  const weekDates = getCurrentWeekDates();
+
+  return weekDates.map((date) => {
+    const completedCount = habitLogs.filter(
+      (log) => log.completed_date === date
+    ).length;
+
+    const totalHabits = habits.length;
+
+    const score =
+      totalHabits === 0
+        ? 0
+        : Math.round((completedCount / totalHabits) * 100);
+
+    return {
+      date,
+      completedCount,
+      totalHabits,
+      score,
+    };
+  });
+}
+export function getStrongestDay(habits: Habit[], habitLogs: HabitLog[]) {
+  const dailyScores = getDailyScores(habits, habitLogs);
+
+  if (dailyScores.length === 0) return null;
+
+  return dailyScores.reduce((best, current) =>
+    current.score > best.score ? current : best
+  );
+}
+
+export function getMostConsistentHabit(
+  habits: Habit[],
+  habitLogs: HabitLog[]
+) {
+  const weeklyStats = getWeeklyHabitStats(habits, habitLogs);
+
+  if (weeklyStats.length === 0) return null;
+
+  return weeklyStats.reduce((best, current) =>
+    current.completionRate > best.completionRate ? current : best
+  );
 }
