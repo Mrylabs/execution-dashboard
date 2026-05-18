@@ -17,10 +17,10 @@ export default function HabitsPage() {
   }
 
   return (
-    <section className="max-w-3xl space-y-6">
+    <section className="mr-auto max-w-5xl space-y-6 rounded-3xl bg-amber-50/40 p-4 md:p-6">
       <header>
-        <h1 className="text-3xl font-semibold text-gray-900">Habits</h1>
-        <p className="mt-2 text-gray-500">
+        <h1 className="text-3xl font-bold">Habits</h1>
+        <p className="text-gray-400">
           Track the routines that keep your execution system alive.
         </p>
       </header>
