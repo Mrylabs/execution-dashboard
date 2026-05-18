@@ -3,11 +3,16 @@ import Link from "next/link";
 import { useHabits } from "@/lib/useHabits";
 import SummaryCard from "@/components/Today/SummaryCard";
 import { useTasks } from "@/lib/useTasks";
+import { getWeeklyCompletionPercentage } from "@/lib/analytics";
 
 export default function DashboardPage() {
   const { tasks } = useTasks();
-  const { habits, completedTodayHabitIds } = useHabits();
+  const { habits, logs, completedTodayHabitIds } = useHabits();
 
+  const weeklyHabitCompletionPercentage = getWeeklyCompletionPercentage(
+    habits,
+    logs
+  );
   const completedTodayCount = completedTodayHabitIds.size;
 
   const totalTasks = tasks.length;
@@ -20,16 +25,16 @@ export default function DashboardPage() {
   const focusTasks = activeTasks.slice(0, 2);
 
   return (
-    <section className="mx-auto max-w-4xl space-y-6 md:space-y-8">
+    <section className="mr-auto max-w-5xl mx-auto max-w-4xl space-y-5 rounded-3xl bg-blue-50/30 p-4 md:space-y-8 md:p-6">
       {/* Header */}
       <header>
-       <h1 className="text-2xl font-semibold text-gray-900 md:text-3xl">
+       <h1 className="text-3xl font-bold">
           Execution Overview
         </h1>
       </header>
 
       {/* Summary */}
-       <section className="grid gap-4 md:grid-cols-2 md:gap-6">
+       <section className="grid grid-cols-2 gap-3 md:gap-6">
         <Link href="/dashboard/tasks">
           <div className="cursor-pointer">
             <SummaryCard
@@ -74,6 +79,33 @@ export default function DashboardPage() {
           </div>
         )}
       </section>
+
+      {/* analytics */}
+      <Link href="/dashboard/analytics">
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="mb-3 flex items-center justify-between">
+            <div>
+              <h2 className="text-sm font-medium text-gray-500">
+                Weekly Progress
+              </h2>
+              <p className="text-xs text-gray-400">
+                Habit completion across this week
+              </p>
+            </div>
+
+            <span className="text-lg font-semibold text-gray-900">
+              {weeklyHabitCompletionPercentage}%
+            </span>
+          </div>
+
+          <div className="h-3 overflow-hidden rounded-full bg-gray-100">
+            <div
+              className="h-full rounded-full bg-blue-500 transition-all"
+              style={{ width: `${weeklyHabitCompletionPercentage}%` }}
+            />
+          </div>
+        </section>
+      </Link>
     </section>
   );
 }
