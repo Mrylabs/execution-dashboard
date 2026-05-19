@@ -91,16 +91,16 @@ export default function DashboardPage() {
   const focusTasks = activeTasks.slice(0, 2);
 
   return (
-    <section className="max-w-4xl space-y-8">
+    <section className="mx-auto max-w-4xl space-y-6 md:space-y-8">
       {/* Header */}
       <header>
-        <h1 className="text-3xl font-semibold text-gray-900">
+       <h1 className="text-2xl font-semibold text-gray-900 md:text-3xl">
           Execution Overview
         </h1>
       </header>
 
       {/* Summary */}
-      <section className="grid gap-6 md:grid-cols-2">
+       <section className="grid gap-4 md:grid-cols-2 md:gap-6">
         <Link href="/dashboard/tasks">
           <div className="cursor-pointer">
             <SummaryCard
