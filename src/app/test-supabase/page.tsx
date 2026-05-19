@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import { FormEvent, useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -133,3 +134,22 @@ export default function TestSupabasePage() {
     </main>
   );
 }
+=======
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
+export default function TestSupabasePage() {
+  useEffect(() => {
+    async function testConnection() {
+      const { data, error } = await supabase.from("test").select("*");
+
+      console.log("Supabase data:", data);
+      console.log("Supabase error:", error);
+    }
+
+    testConnection();
+  }, []);
+
+  return <main className="p-8">Testing Supabase connection...</main>;
+}
+>>>>>>> c6efb72 (setup: connect Next.js app to Supabase)
