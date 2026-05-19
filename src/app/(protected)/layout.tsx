@@ -37,9 +37,9 @@ export default function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 md:flex">
-      {/* Desktop sidebar */}
-      <aside className="hidden w-64 border-r border-gray-200 bg-white px-6 py-8 shadow-sm md:block">
+    <div className="flex h-screen bg-gray-50">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white border-r border-gray-200 px-6 py-8 shadow-sm">
         <h2 className="mb-8 text-xl font-semibold text-gray-900">
           Execution Dashboard
         </h2>
@@ -61,7 +61,8 @@ export default function DashboardLayout({
         </nav>
       </aside>
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      {/* Right side */}
+      <div className="flex flex-col flex-1 overflow-hidden">
         <Navbar />
 
         <main className="flex-1 overflow-y-auto px-4 py-3 pb-24 text-gray-600 sm:px-6 md:px-8 md:py-6">

@@ -43,16 +43,9 @@ export default function Navbar() {
     : "";
 
   return (
-    <div className="h-14 px-6 flex items-center justify-between border-b bg-white">
-      <div className="text-sm text-gray-500">
-        {now && (
-          <span>
-            {dateLabel} · {timeLabel}
-          </span>
-        )}
-      </div>
+    <div className="h-14 px-6 flex items-center border-b bg-white">
 
-      <div className="relative">
+      <div className="relative ml-auto">
         <button
           onClick={() => setOpen(!open)}
           className="h-8 w-8 rounded-full bg-gray-300 ring-2 ring-transparent transition hover:ring-gray-200"
@@ -78,4 +71,3 @@ export default function Navbar() {
       </div>
     </div>
   );
-}
