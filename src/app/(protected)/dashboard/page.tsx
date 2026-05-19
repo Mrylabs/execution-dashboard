@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { useHabits } from "@/lib/useHabits";
 import SummaryCard from "@/components/Today/SummaryCard";
@@ -69,4 +70,52 @@ export default function DashboardPage() {
       </Link>
     </section>
   );
+=======
+"use client";
+
+import { useHabits } from "@/lib/useHabits";
+import SummaryCard from "@/components/Today/SummaryCard";
+import { useTasks } from "@/lib/useTasks";
+
+export default function DashboardPage() {
+  const { tasks } = useTasks();
+  const { habits, completedTodayCount } = useHabits();
+
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter((task) => task.completed).length;
+
+  const totalHabits = habits.length;
+  const completedHabits = completedTodayCount();
+
+  const todayLabel = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "short",
+    day: "numeric",
+  }).format(new Date());
+
+  return (
+    <section className="max-w-4xl space-y-8">
+      <header>
+        <h1 className="mt-2 text-3xl font-semibold text-gray-900">
+          Execution Overview
+        </h1>
+        <p className="mt-2 text-gray-500">{todayLabel}</p>
+      </header>
+
+      <section className="grid gap-6 md:grid-cols-2">
+        <SummaryCard
+          title="Tasks"
+          value={`${completedTasks}/${totalTasks}`}
+          subtitle="completed"
+        />
+
+        <SummaryCard
+          title="Habits"
+          value={totalHabits === 0 ? "0/0" : `${completedHabits}/${totalHabits}`}
+          subtitle={totalHabits === 0 ? "no habits yet" : "completed today"}
+        />
+      </section>
+    </section>
+  );
+>>>>>>> d58c440 (feat: improve dashboard UX, add topbar date/time, refine tasks interactions)
 }

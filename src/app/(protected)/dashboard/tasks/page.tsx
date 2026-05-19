@@ -134,7 +134,6 @@ export default function TasksPage() {
   return (
   <section className="max-w-3xl space-y-6">
     <header>
-      <p className="text-sm font-medium text-blue-600">Tasks</p>
       <h1 className="mt-2 text-3xl font-semibold text-gray-900">
         Today&apos;s Tasks
       </h1>

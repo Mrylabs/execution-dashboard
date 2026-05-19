@@ -62,7 +62,7 @@ export default function TaskItem({
 }: TaskItemProps) {
   return (
     <li
-      className={`flex items-start justify-between gap-3 rounded-2xl border bg-white px-4 py-4 shadow-sm transition ${
+      className={`group flex items-start justify-between gap-3 rounded-2xl border bg-white px-4 py-4 shadow-sm transition ${
         task.completed
           ? "border-gray-100 opacity-60"
           : "border-gray-200 hover:shadow-md"
@@ -88,7 +88,7 @@ export default function TaskItem({
       <button
         type="button"
         onClick={() => onDelete(task.id)}
-        className="text-xs text-gray-400 transition hover:text-red-500"
+        className="text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition hover:text-red-500 group-hover:opacity-100"
       >
         Delete
       </button>
