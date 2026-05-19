@@ -42,7 +42,7 @@ import TaskItem from "./TaskItem";
 
 type TaskListProps = {
   tasks: Task[];
-  onToggle: (id: string) => void;
+  onToggle: (task: Task) => void;
   onDelete: (id: string) => void;
 };
 
