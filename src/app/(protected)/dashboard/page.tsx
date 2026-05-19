@@ -72,7 +72,7 @@ export default function DashboardPage() {
   );
 =======
 "use client";
-
+import Link from "next/link";
 import { useHabits } from "@/lib/useHabits";
 import SummaryCard from "@/components/Today/SummaryCard";
 import { useTasks } from "@/lib/useTasks";
@@ -101,17 +101,25 @@ export default function DashboardPage() {
 
       {/* Summary */}
       <section className="grid gap-6 md:grid-cols-2">
-        <SummaryCard
-          title="Tasks"
-          value={`${completedTasks}/${totalTasks}`}
-          subtitle="completed"
-        />
+        <Link href="/dashboard/tasks">
+          <div className="cursor-pointer">
+            <SummaryCard
+              title="Tasks"
+              value={`${completedTasks}/${totalTasks}`}
+              subtitle="completed"
+            />
+          </div>
+        </Link>
 
-        <SummaryCard
-          title="Habits"
-          value={totalHabits === 0 ? "0/0" : `${completedHabits}/${totalHabits}`}
-          subtitle={totalHabits === 0 ? "no habits yet" : "completed today"}
-        />
+       <Link href="/dashboard/habits">
+          <div className="cursor-pointer">
+            <SummaryCard
+              title="Habits"
+              value={totalHabits === 0 ? "0/0" : `${completedHabits}/${totalHabits}`}
+              subtitle={totalHabits === 0 ? "no habits yet" : "completed today"}
+            />
+          </div>
+        </Link>
       </section>
 
       {/* Today's Focus */}
