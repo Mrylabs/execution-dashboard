@@ -79,13 +79,15 @@ import { useTasks } from "@/lib/useTasks";
 
 export default function DashboardPage() {
   const { tasks } = useTasks();
-  const { habits, completedTodayCount } = useHabits();
+  const { habits, completedTodayHabitIds } = useHabits();
+
+  const completedTodayCount = completedTodayHabitIds.size;
 
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((task) => task.completed).length;
 
   const totalHabits = habits.length;
-  const completedHabits = completedTodayCount();
+  const completedHabits = completedTodayCount;
 
   const activeTasks = tasks.filter((task) => !task.completed);
   const focusTasks = activeTasks.slice(0, 2);
