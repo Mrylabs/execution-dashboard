@@ -17,18 +17,13 @@ export default function HabitsPage() {
   }
 
   return (
-    <section className="mr-auto max-w-5xl space-y-6 rounded-3xl bg-amber-50/40 p-4 md:p-6">
-      <header>
-        <h1 className="text-3xl font-bold">Habits</h1>
-        <p className="text-gray-400">
-          Track the routines that keep your execution system alive.
-        </p>
-      </header>
+    <div>
+      <h1 className="text-2xl font-semibold mb-6">Habits</h1>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleAdd();
+    <form  onSubmit={(e) => {
+        e.preventDefault();
+        if (!newHabit.trim()) return;
+        handleAdd();
         }}
         className="flex gap-3"
       >
@@ -47,34 +42,21 @@ export default function HabitsPage() {
         </button>
       </form>
 
-      {loading ? (
-        <div className="rounded-2xl border border-gray-300 bg-white p-8 text-center">Loading habits...</div>
-      ) : error ? (
-        <div className="rounded-2xl border border-red-300 bg-white p-8 text-center">
-          <p className="text-sm font-medium text-red-600">{error}</p>
-        </div>
-      ) : habits.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-gray-300 bg-white p-8 text-center">
-          <p className="text-sm font-medium text-gray-900">No habits yet</p>
-          <p className="mt-2 text-sm text-gray-500">
-            Add one routine to start building visible momentum.
-          </p>
-        </div>
-      ) : (
-        <div className="space-y-3">
-          {habits.map((habit) => {
-            const completedToday = completedTodayHabitIds.has(habit.id);
-            return (
-              <HabitItem
-                key={habit.id}
-                habit={habit}
-                completedToday={completedToday}
-                onToggle={toggleHabitToday}
-                onDelete={deleteHabit}
-              />
-            );
-          })}
-        </div>
+     <div className="space-y-3">
+      {habits.map((habit) => (
+        <HabitItem
+          key={habit.id}
+          habit={habit}
+          onComplete={completeHabit}
+          onDelete={deleteHabit}
+        />
+        ))}
+      </div>
+
+      {habits.length === 0 && (
+        <p className="text-gray-500 text-sm mt-4">
+          No habits yet. Start building momentum.
+        </p>
       )}
     </section>
   );
