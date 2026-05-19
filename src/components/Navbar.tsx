@@ -77,7 +77,7 @@ export default function Navbar() {
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { logout } from "@/lib/auth";
+import { signOut } from "@/lib/auth";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -96,8 +96,10 @@ export default function Navbar() {
   }, []);
 
   function handleLogout() {
-    logout();
-    router.replace("/login");
+    (async () => {
+      await signOut();
+      router.push("/login");
+    })();
   }
 
   const dateLabel = now
