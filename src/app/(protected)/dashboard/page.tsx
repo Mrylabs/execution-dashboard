@@ -76,11 +76,16 @@ import Link from "next/link";
 import { useHabits } from "@/lib/useHabits";
 import SummaryCard from "@/components/Today/SummaryCard";
 import { useTasks } from "@/lib/useTasks";
+import { getWeeklyCompletionPercentage } from "@/lib/analytics";
 
 export default function DashboardPage() {
   const { tasks } = useTasks();
-  const { habits, completedTodayHabitIds } = useHabits();
+  const { habits, logs, completedTodayHabitIds } = useHabits();
 
+  const weeklyHabitCompletionPercentage = getWeeklyCompletionPercentage(
+    habits,
+    logs
+  );
   const completedTodayCount = completedTodayHabitIds.size;
 
   const totalTasks = tasks.length;
@@ -147,6 +152,33 @@ export default function DashboardPage() {
           </div>
         )}
       </section>
+
+      {/* analytics */}
+      <Link href="/dashboard/analytics">
+        <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+          <div className="mb-3 flex items-center justify-between">
+            <div>
+              <h2 className="text-sm font-medium text-gray-500">
+                Weekly Progress
+              </h2>
+              <p className="text-xs text-gray-400">
+                Habit completion across this week
+              </p>
+            </div>
+
+            <span className="text-lg font-semibold text-gray-900">
+              {weeklyHabitCompletionPercentage}%
+            </span>
+          </div>
+
+          <div className="h-3 overflow-hidden rounded-full bg-gray-100">
+            <div
+              className="h-full rounded-full bg-blue-500 transition-all"
+              style={{ width: `${weeklyHabitCompletionPercentage}%` }}
+            />
+          </div>
+        </section>
+      </Link>
     </section>
   );
 >>>>>>> d58c440 (feat: improve dashboard UX, add topbar date/time, refine tasks interactions)

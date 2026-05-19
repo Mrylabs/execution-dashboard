@@ -41,44 +41,31 @@ export default function AnalyticsPage() {
         </p>
       </div>
 
-      <section className="grid grid-cols-3 gap-2 md:gap-4">
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
-          <p className="text-[11px] font-medium text-gray-500 md:text-sm">
-            Weekly
-          </p>
-          <p className="mt-1 text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-            {weeklyPercentage}%
-          </p>
-        </div>
+      <div className="rounded-xl border p-4">
+        <h2 className="text-xl font-semibold mb-2">
+          Weekly Completion Rate
+        </h2>
 
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
-          <p className="text-[11px] font-medium text-gray-500 md:text-sm">
-            Best Day
-          </p>
-          <p className="mt-1 truncate text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-            {strongestDay
-              ? WEEKDAY_LABELS[dailyScores.findIndex((day) => day.date === strongestDay.date)]
-              : "—"}
-          </p>
-          <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
-            {strongestDay
-              ? `${strongestDay.completedCount}/${strongestDay.totalHabits} habits`
-              : "No data"}
-          </p>
-        </div>
+        <p className="text-4xl font-bold">
+          {weeklyPercentage}%
+        </p>
+      </div>
 
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
-          <p className="text-[11px] font-medium text-gray-500 md:text-sm">
-            Best Habit
-          </p>
-          <p className="mt-1 truncate text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-            {mostConsistentHabit ? mostConsistentHabit.habitName : "—"}
-          </p>
-          <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
-            {mostConsistentHabit
-              ? `${mostConsistentHabit.completionCount}/7 days`
-              : "No habits"}
-          </p>
+      <div className="rounded-xl border p-4">
+        <h2 className="text-xl font-semibold mb-4">
+          Daily Completion Counts
+        </h2>
+
+        <div className="space-y-2">
+          {dailyCounts.map((day) => (
+            <div
+              key={day.date}
+              className="flex items-center justify-between"
+            >
+              <span>{day.date}</span>
+              <span>{day.count}</span>
+            </div>
+          ))}
         </div>
       </section>
 
