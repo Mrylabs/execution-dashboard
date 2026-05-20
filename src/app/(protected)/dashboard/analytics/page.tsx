@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { useHabits } from "@/lib/useHabits";
 import {
   getWeekDates,
@@ -22,6 +22,16 @@ export default function AnalyticsPage() {
   const strongestDay = getStrongestDay(habits, logs);
   const mostConsistentHabit = getMostConsistentHabit(habits, logs);
   const dailyScores = getDailyScores(habits, logs);
+  const [showDailyScores, setShowDailyScores] = useState(false);
+
+  const allDailyScoresZero =
+    dailyScores.length === 0 || dailyScores.every((d) => d.score === 0);
+
+  const strongestDayLabel = !strongestDay || allDailyScoresZero
+    ? "—"
+    : WEEKDAY_LABELS[
+        dailyScores.findIndex((day) => day.date === strongestDay.date)
+      ];
 
   const weeklyPercentage = getWeeklyCompletionPercentage(
     habits,
@@ -44,82 +54,91 @@ export default function AnalyticsPage() {
         title="Weekly Analytics"
         description="Track consistency and execution patterns."
       />
-
       <section className="grid grid-cols-3 gap-2 md:gap-4">
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
+        <DashboardCard className="p-3 md:p-5">
           <p className="text-[11px] font-medium text-gray-500 md:text-sm">
             Weekly
           </p>
+
           <p className="mt-1 text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
             {weeklyPercentage}%
           </p>
-        </div>
+        </DashboardCard>
 
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
+        <DashboardCard className="p-3 md:p-5">
           <p className="text-[11px] font-medium text-gray-500 md:text-sm">
             Best Day
           </p>
+
           <p className="mt-1 truncate text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-            {strongestDay
-              ? WEEKDAY_LABELS[dailyScores.findIndex((day) => day.date === strongestDay.date)]
-              : "—"}
+            {strongestDayLabel}
           </p>
+
           <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
             {strongestDay
               ? `${strongestDay.completedCount}/${strongestDay.totalHabits} habits`
               : "No data"}
           </p>
-        </div>
+        </DashboardCard>
 
-        <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
+        <DashboardCard className="p-3 md:p-5">
           <p className="text-[11px] font-medium text-gray-500 md:text-sm">
             Best Habit
           </p>
+
           <p className="mt-1 truncate text-xl font-bold text-gray-900 md:mt-2 md:text-3xl">
-            {mostConsistentHabit ? mostConsistentHabit.habitName : "—"}
+            {mostConsistentHabit
+              ? mostConsistentHabit.habitName
+              : "—"}
           </p>
+
           <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
             {mostConsistentHabit
               ? `${mostConsistentHabit.completionCount}/7 days`
               : "No habits"}
           </p>
-        </div>
+        </DashboardCard>
       </section>
 
-      <div className="rounded-xl border bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-xl font-semibold text-gray-900">
-          Daily Scores
-        </h2>
-
-        <div className="space-y-4">
-          {dailyScores.map((day, index) => (
-            <div key={day.date}>
-              <div className="mb-1 flex items-center justify-between text-sm">
-                <span className="text-gray-600">
-                  {WEEKDAY_LABELS[index]}
-                </span>
-
-                <span className="font-medium text-gray-900">
-                  {day.score}%
-                </span>
-              </div>
-
-              <div className="h-2 overflow-hidden rounded-full bg-gray-100">
-                <div
-                  className="h-full rounded-full bg-blue-500 transition-all"
-                  style={{ width: `${day.score}%` }}
-                />
-              </div>
-
-              <p className="mt-1 text-xs text-gray-400">
-                {day.completedCount}/{day.totalHabits} habits completed
-              </p>
-            </div>
-          ))}
+      <DashboardCard className="p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-900">Daily Scores</h2>
+          <button
+            type="button"
+            onClick={() => setShowDailyScores((s) => !s)}
+            className="text-sm font-medium text-blue-600 hover:underline"
+          >
+            {showDailyScores ? "Hide" : "Show"}
+          </button>
         </div>
-      </div>
 
-      <div className="rounded-xl border bg-white p-6 shadow-sm">
+        {showDailyScores && (
+          <div className="space-y-4">
+            {dailyScores.map((day, index) => (
+              <div key={day.date}>
+                <div className="mb-1 flex items-center justify-between text-sm">
+                  <span className="text-gray-600">{WEEKDAY_LABELS[index]}</span>
+
+                  <span className="font-medium text-gray-900">{day.score}%</span>
+                </div>
+
+                <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+                  <div
+                    className="h-full rounded-full bg-blue-500 transition-all"
+                    style={{ width: `${day.score}%` }}
+                  />
+                </div>
+
+                <p className="mt-1 text-xs text-gray-400">
+                  {day.completedCount}/{day.totalHabits} habits completed
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+      </DashboardCard>
+
+      <DashboardCard className="p-6">
         <h2 className="mb-6 text-xl font-semibold text-gray-900">
           Weekly Habit Grid
         </h2>
@@ -178,7 +197,7 @@ export default function AnalyticsPage() {
             </div>
           </div>
         </div>
-      </div>
+      </DashboardCard>
       <div className="space-y-4">
         <div>
           <h2 className="text-xl font-semibold text-gray-900">
