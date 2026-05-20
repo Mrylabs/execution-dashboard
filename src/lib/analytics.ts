@@ -129,3 +129,38 @@ export function getMostConsistentHabit(
     current.completionRate > best.completionRate ? current : best
   );
 }
+
+export function getLastFourWeeksSummary(
+  habits: Habit[],
+  habitLogs: HabitLog[]
+) {
+  return Array.from({ length: 4 }, (_, index) => {
+    const offset = -index;
+
+    const weekDates = getWeekDates(offset);
+
+    const totalPossibleCompletions =
+      habits.length * weekDates.length;
+
+    const completedCount = habitLogs.filter((log) =>
+      weekDates.includes(log.completed_date)
+    ).length;
+
+    const percentage =
+      totalPossibleCompletions === 0
+        ? 0
+        : Math.round(
+            (completedCount / totalPossibleCompletions) * 100
+          );
+
+    return {
+      label:
+        offset === 0
+          ? "This Week"
+          : `${Math.abs(offset)} Week${Math.abs(offset) > 1 ? "s" : ""} Ago`,
+      percentage,
+      completedCount,
+      totalPossibleCompletions,
+    };
+  });
+}

@@ -9,9 +9,11 @@ import {
   getDailyScores,
   getStrongestDay,
   getMostConsistentHabit,
+  getLastFourWeeksSummary,
 } from "@/lib/analytics";
 import PageShell from "@/components/dashboard/PageShell";
 import PageHeader from "@/components/dashboard/PageHeader";
+import DashboardCard from "@/components/dashboard/DashboardCard";
 
 export default function AnalyticsPage() {
   const { habits, logs, loading, error } = useHabits();
@@ -25,6 +27,8 @@ export default function AnalyticsPage() {
     habits,
     logs
   );
+
+  const lastFourWeeksSummary = getLastFourWeeksSummary(habits, logs);
 
   if (loading) {
     return <div className="p-6">Loading analytics...</div>;
@@ -173,6 +177,46 @@ export default function AnalyticsPage() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Weekly Archive
+          </h2>
+
+          <p className="text-sm text-gray-400">
+            Consistency trends across recent weeks.
+          </p>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-4">
+          {lastFourWeeksSummary.map((week) => (
+            <DashboardCard
+              key={week.label}
+              className="p-4"
+            >
+              <p className="text-sm font-medium text-gray-500">
+                {week.label}
+              </p>
+
+              <p className="mt-2 text-2xl font-bold text-gray-900">
+                {week.percentage}%
+              </p>
+
+              <p className="mt-1 text-xs text-gray-400">
+                {week.completedCount}/
+                {week.totalPossibleCompletions} completions
+              </p>
+
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-gray-100">
+                <div
+                  className="h-full rounded-full bg-blue-500 transition-all"
+                  style={{ width: `${week.percentage}%` }}
+                />
+              </div>
+            </DashboardCard>
+          ))}
         </div>
       </div>
     </PageShell>
