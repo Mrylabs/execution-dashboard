@@ -2,7 +2,7 @@
 
 import { useHabits } from "@/lib/useHabits";
 import {
-  getCurrentWeekDates,
+  getWeekDates,
   getWeeklyCompletionPercentage,
   WEEKDAY_LABELS,
   isHabitCompletedOnDate,
@@ -16,7 +16,7 @@ import PageHeader from "@/components/dashboard/PageHeader";
 export default function AnalyticsPage() {
   const { habits, logs, loading, error } = useHabits();
 
-  const weekDates = getCurrentWeekDates();
+  const weekDates = getWeekDates();
   const strongestDay = getStrongestDay(habits, logs);
   const mostConsistentHabit = getMostConsistentHabit(habits, logs);
   const dailyScores = getDailyScores(habits, logs);

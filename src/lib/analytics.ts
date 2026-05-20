@@ -1,14 +1,21 @@
 import type { Habit, HabitLog } from "@/types/habit";
 
 export const WEEKDAY_LABELS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-export function getCurrentWeekDates() {
-  const today = new Date();
-  const day = today.getDay();
 
+// Returns an array of ISO date strings for a Monday-based week.
+// `offset` shifts weeks by multiples of 1 week (e.g. -1 = previous week, 1 = next week).
+export function getWeekDates(offset = 0) {
+  const today = new Date();
+
+  // Shift by full weeks first
+  const target = new Date(today);
+  target.setDate(today.getDate() + offset * 7);
+
+  const day = target.getDay();
   const diffToMonday = day === 0 ? -6 : 1 - day;
 
-  const monday = new Date(today);
-  monday.setDate(today.getDate() + diffToMonday);
+  const monday = new Date(target);
+  monday.setDate(target.getDate() + diffToMonday);
 
   return Array.from({ length: 7 }, (_, index) => {
     const date = new Date(monday);
@@ -19,7 +26,7 @@ export function getCurrentWeekDates() {
 }
 
 export function getWeeklyHabitStats(habits: Habit[], habitLogs: HabitLog[]) {
-  const weekDates = getCurrentWeekDates();
+  const weekDates = getWeekDates();
 
   return habits.map((habit) => {
     const completedDates = weekDates.filter((date) =>
@@ -39,7 +46,7 @@ export function getWeeklyHabitStats(habits: Habit[], habitLogs: HabitLog[]) {
 }
 
 export function getDailyCompletionCounts(habitLogs: HabitLog[]) {
-  const weekDates = getCurrentWeekDates();
+  const weekDates = getWeekDates();
 
   return weekDates.map((date) => {
     const count = habitLogs.filter((log) => log.completed_date === date).length;
@@ -55,7 +62,7 @@ export function getWeeklyCompletionPercentage(
   habits: Habit[],
   habitLogs: HabitLog[]
 ) {
-  const weekDates = getCurrentWeekDates();
+  const weekDates = getWeekDates();
   const totalPossibleCompletions = habits.length * weekDates.length;
 
   if (totalPossibleCompletions === 0) return 0;
@@ -78,7 +85,7 @@ export function isHabitCompletedOnDate(
 }
 
 export function getDailyScores(habits: Habit[], habitLogs: HabitLog[]) {
-  const weekDates = getCurrentWeekDates();
+  const weekDates = getWeekDates();
 
   return weekDates.map((date) => {
     const completedCount = habitLogs.filter(
