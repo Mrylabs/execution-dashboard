@@ -10,6 +10,8 @@ import {
   getStrongestDay,
   getMostConsistentHabit,
 } from "@/lib/analytics";
+import PageShell from "@/components/dashboard/PageShell";
+import PageHeader from "@/components/dashboard/PageHeader";
 
 export default function AnalyticsPage() {
   const { habits, logs, loading, error } = useHabits();
@@ -33,13 +35,11 @@ export default function AnalyticsPage() {
   }
 
   return (
-    <div className="space-y-5 p-4 md:space-y-6 md:p-6">
-      <div>
-        <h1 className="text-3xl font-bold">Weekly Analytics</h1>
-        <p className="text-gray-400">
-          Track consistency and execution patterns.
-        </p>
-      </div>
+    <PageShell tone="analytics">
+      <PageHeader
+        title="Weekly Analytics"
+        description="Track consistency and execution patterns."
+      />
 
       <section className="grid grid-cols-3 gap-2 md:gap-4">
         <div className="rounded-xl border bg-white p-3 shadow-sm md:p-5">
@@ -175,6 +175,6 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageShell>
   );
 }

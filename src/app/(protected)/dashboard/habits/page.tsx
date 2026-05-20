@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useHabits } from "@/lib/useHabits";
 import HabitItem from "@/components/habits/HabitItem";
+import PageShell from "@/components/dashboard/PageShell";
+import PageHeader from "@/components/dashboard/PageHeader";
 
 
 export default function HabitsPage() {
@@ -17,13 +19,11 @@ export default function HabitsPage() {
   }
 
   return (
-    <section className="mr-auto max-w-5xl space-y-6 rounded-3xl bg-amber-50/40 p-4 md:p-6">
-      <header>
-        <h1 className="text-3xl font-bold">Habits</h1>
-        <p className="text-gray-400">
-          Track the routines that keep your execution system alive.
-        </p>
-      </header>
+    <PageShell tone="habits">
+      <PageHeader
+        title="Habits"
+        description="Track the routines that keep your execution system alive."
+      />
 
       <form
         onSubmit={(e) => {
@@ -76,6 +76,6 @@ export default function HabitsPage() {
           })}
         </div>
       )}
-    </section>
+    </PageShell>
   );
 }

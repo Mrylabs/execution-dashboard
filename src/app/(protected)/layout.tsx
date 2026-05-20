@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
-import Navbar from "@/components/Navbar";
+import TopBar from "@/components/TopBar";
 
 export default function DashboardLayout({
   children,
@@ -62,7 +62,7 @@ export default function DashboardLayout({
       </aside>
 
       <div className="flex min-h-screen flex-1 flex-col">
-        <Navbar />
+        <TopBar />
 
         <main className="flex-1 overflow-y-auto px-4 py-3 pb-24 text-gray-600 sm:px-6 md:px-8 md:py-6">
           {children}

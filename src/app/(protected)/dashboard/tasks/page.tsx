@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useTasks } from "@/lib/useTasks";
 import type { Task } from "@/lib/tasks";
 import TaskList from "@/components/tasks/TaskList";
+import PageShell from "@/components/dashboard/PageShell";
+import PageHeader from "@/components/dashboard/PageHeader";
 
 export default function TasksPage() {
   const { tasks, loading, error, addTask, toggleTask, deleteTask } = useTasks();
@@ -28,13 +30,11 @@ export default function TasksPage() {
   };
 
   return (
-    <section className="mr-auto max-w-5xl space-y-6 rounded-3xl bg-blue-50/30 p-4 md:p-6">
-      <header>
-        <h1 className="text-3xl font-bold">Tasks</h1>
-        <p className="text-gray-400">
-          Capture and complete today’s maintenance items.
-        </p>
-      </header>
+    <PageShell tone="tasks">
+      <PageHeader
+        title="Tasks"
+        description="Capture and complete today’s maintenance items."
+      />
 
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
@@ -71,6 +71,6 @@ export default function TasksPage() {
           onDelete={handleDelete}
         />
       )}
-    </section>
+    </PageShell>
   );
 }

@@ -4,6 +4,8 @@ import { useHabits } from "@/lib/useHabits";
 import SummaryCard from "@/components/Today/SummaryCard";
 import { useTasks } from "@/lib/useTasks";
 import { getWeeklyCompletionPercentage } from "@/lib/analytics";
+import PageShell from "@/components/dashboard/PageShell";
+import PageHeader from "@/components/dashboard/PageHeader";
 
 export default function DashboardPage() {
   const { tasks } = useTasks();
@@ -25,13 +27,9 @@ export default function DashboardPage() {
   const focusTasks = activeTasks.slice(0, 2);
 
   return (
-    <section className="mr-auto max-w-5xl mx-auto max-w-4xl space-y-5 rounded-3xl bg-blue-50/30 p-4 md:space-y-8 md:p-6">
+    <PageShell tone="analytics">
       {/* Header */}
-      <header>
-       <h1 className="text-3xl font-bold">
-          Execution Overview
-        </h1>
-      </header>
+      <PageHeader title="Execution Overview" />
 
       {/* Summary */}
        <section className="grid grid-cols-2 gap-3 md:gap-6">
@@ -106,6 +104,6 @@ export default function DashboardPage() {
           </div>
         </section>
       </Link>
-    </section>
+    </PageShell>
   );
 }

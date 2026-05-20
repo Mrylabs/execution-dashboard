@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "@/lib/auth";
 import Link from "next/link";
 
-export default function Navbar() {
+export default function TopBar() {
   const [open, setOpen] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
   const router = useRouter();
