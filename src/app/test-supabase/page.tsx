@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 type Task = {
@@ -134,4 +133,3 @@ export default function TestSupabasePage() {
     </main>
   );
 }
->>>>>>> c6efb72 (setup: connect Next.js app to Supabase)
