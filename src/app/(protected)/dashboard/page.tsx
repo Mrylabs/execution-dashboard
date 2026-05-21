@@ -6,6 +6,7 @@ import { useTasks } from "@/lib/useTasks";
 import { getWeeklyCompletionPercentage } from "@/lib/analytics";
 import PageShell from "@/components/dashboard/PageShell";
 import PageHeader from "@/components/dashboard/PageHeader";
+import { useJobs } from "@/lib/useJobs";
 
 export default function DashboardPage() {
   const { tasks } = useTasks();
@@ -26,15 +27,20 @@ export default function DashboardPage() {
   const activeTasks = tasks.filter((task) => !task.completed);
   const focusTasks = activeTasks.slice(0, 2);
 
+  const { jobs } = useJobs();
+
+  const activeJobs = jobs.filter((job) => job.status !== "rejected");
+  const appliedJobs = jobs.filter((job) => job.status === "applied").length;
+
   return (
     <PageShell tone="analytics">
       {/* Header */}
       <PageHeader title="Execution Overview" />
 
       {/* Summary */}
-       <section className="grid grid-cols-2 gap-3 md:gap-6">
+      <section className="flex gap-3 overflow-x-auto pb-1 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible">
         <Link href="/dashboard/tasks">
-          <div className="cursor-pointer">
+          <div className="min-w-[140px] flex-1 md:min-w-0 cursor-pointer">
             <SummaryCard
               title="Tasks"
               value={`${completedTasks}/${totalTasks}`}
@@ -44,11 +50,21 @@ export default function DashboardPage() {
         </Link>
 
        <Link href="/dashboard/habits">
-          <div className="cursor-pointer">
+          <div className="min-w-[140px] flex-1 md:min-w-0 cursor-pointer">
             <SummaryCard
               title="Habits"
               value={totalHabits === 0 ? "0/0" : `${completedHabits}/${totalHabits}`}
               subtitle={totalHabits === 0 ? "no habits yet" : "completed today"}
+            />
+          </div>
+        </Link>
+      
+       <Link href="/dashboard/jobs">
+          <div className="min-w-[140px] flex-1 md:min-w-0 cursor-pointer">
+            <SummaryCard
+              title="Job Radar"
+              value={`${activeJobs.length}`}
+              subtitle={`${appliedJobs} applied `}
             />
           </div>
         </Link>

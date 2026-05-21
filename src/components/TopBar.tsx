@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "@/lib/auth";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import Link from "next/link";
 export default function TopBar() {
   const [open, setOpen] = useState(false);
   const [now, setNow] = useState<Date | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,6 +19,23 @@ export default function TopBar() {
     }, 60_000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   function handleLogout() {
@@ -43,7 +61,7 @@ export default function TopBar() {
     : "";
 
   return (
-    <div className="h-14 px-6 flex items-center justify-between border-b bg-white">
+    <div className="flex h-14 items-center justify-between border-b bg-white px-6">
       <div className="text-sm text-gray-500">
         {now && (
           <span>
@@ -52,16 +70,18 @@ export default function TopBar() {
         )}
       </div>
 
-      <div className="relative">
+      <div ref={dropdownRef} className="relative">
         <button
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((prev) => !prev)}
           className="h-8 w-8 rounded-full bg-gray-300 ring-2 ring-transparent transition hover:ring-gray-200"
+          aria-label="Open user menu"
         />
 
         {open && (
           <div className="absolute right-0 z-10 mt-2 w-40 rounded-xl border bg-white shadow-lg">
             <Link
               href="/dashboard/settings"
+              onClick={() => setOpen(false)}
               className="block px-4 py-2 text-sm text-gray-500 hover:bg-gray-50"
             >
               Settings

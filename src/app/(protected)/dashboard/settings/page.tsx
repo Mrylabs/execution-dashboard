@@ -4,7 +4,7 @@ export default function SettingsPage() {
       <header>
         <h1 className="text-3xl font-semibold text-gray-900">Settings</h1>
         <p className="mt-2 text-gray-500">
-          Manage basic app preferences and local system information.
+          Manage app preferences and system information.
         </p>
       </header>
 
@@ -18,7 +18,7 @@ export default function SettingsPage() {
 
           <div>
             <p className="font-medium text-gray-900">Demo User</p>
-            <p className="text-sm text-gray-500">Local execution mode</p>
+            <p className="text-sm text-gray-500">Authenticated workspace</p>
           </div>
         </div>
       </section>
@@ -27,19 +27,28 @@ export default function SettingsPage() {
         <h2 className="text-sm font-medium text-gray-500">System</h2>
 
         <div className="mt-4 space-y-3 text-sm">
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
             <span className="text-gray-500">Storage</span>
-            <span className="font-medium text-gray-900">Browser localStorage</span>
+            <span className="font-medium text-gray-900">
+              Supabase PostgreSQL
+            </span>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
             <span className="text-gray-500">Authentication</span>
-            <span className="font-medium text-gray-900">Demo protected routes</span>
+            <span className="font-medium text-gray-900">Supabase Auth</span>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-4">
+            <span className="text-gray-500">Data access</span>
+            <span className="font-medium text-gray-900">
+              Row Level Security
+            </span>
+          </div>
+
+          <div className="flex justify-between gap-4">
             <span className="text-gray-500">Version</span>
-            <span className="font-medium text-gray-900">v1</span>
+            <span className="font-medium text-gray-900">v2</span>
           </div>
         </div>
       </section>

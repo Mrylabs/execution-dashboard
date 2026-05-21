@@ -33,8 +33,8 @@ export default function DashboardLayout({
     { href: "/dashboard", label: "Today" },
     { href: "/dashboard/tasks", label: "Tasks" },
     { href: "/dashboard/habits", label: "Habits" },
-    { href: "/dashboard/analytics", label: "Analytics" },
     { href: "/dashboard/jobs", label: "Jobs" },
+    { href: "/dashboard/analytics", label: "Analytics" },
   ];
 
   return (
@@ -71,7 +71,7 @@ export default function DashboardLayout({
 
         {/* Mobile bottom nav */}
         <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white px-4 py-3 shadow-sm md:hidden">
-          <div className="mx-auto flex max-w-md justify-around">
+          <div className="mx-auto flex max-w-md flex-row-reverse justify-around">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
