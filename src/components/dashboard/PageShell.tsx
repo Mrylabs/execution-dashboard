@@ -1,6 +1,6 @@
 type PageShellProps = {
   children: React.ReactNode;
-  tone?: "default" | "tasks" | "habits" | "analytics";
+  tone?: "default" | "tasks" | "habits" | "analytics" | "jobs";
 };
 
 const toneClasses = {
@@ -8,6 +8,7 @@ const toneClasses = {
   tasks: "bg-rose-50/20",
   habits: "bg-amber-50/40",
   analytics: "bg-blue-50/20",
+  jobs: "bg-green-50/20",
 };
 
 export default function PageShell({

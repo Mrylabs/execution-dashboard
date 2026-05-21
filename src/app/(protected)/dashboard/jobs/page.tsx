@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { useJobs } from "@/lib/useJobs";
 import { JobStatus } from "@/types/job";
+import PageShell from "@/components/dashboard/PageShell";
+import PageHeader from "@/components/dashboard/PageHeader";
+import DashboardCard from "@/components/dashboard/DashboardCard";
 
 const statuses: JobStatus[] = [
   "saved",
@@ -11,6 +14,9 @@ const statuses: JobStatus[] = [
   "follow-up",
   "rejected",
 ];
+
+const inputClass =
+  "rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-300 focus:ring-2 focus:ring-blue-50";
 
 export default function JobsPage() {
   const { jobs, loading, error, addJob, changeStatus, removeJob } = useJobs();
@@ -28,14 +34,7 @@ export default function JobsPage() {
 
     if (!company.trim() || !role.trim()) return;
 
-    await addJob({
-      company,
-      role,
-      link,
-      source,
-      notes,
-      deadline,
-    });
+    await addJob({ company, role, link, source, notes, deadline });
 
     setCompany("");
     setRole("");
@@ -46,92 +45,67 @@ export default function JobsPage() {
   }
 
   return (
-    <main className="space-y-8">
-      <section>
-        <h1 className="text-3xl font-bold tracking-tight">Job Radar</h1>
-        <p className="mt-2 text-sm text-gray-500">
-          Track job leads, applications, follow-ups, and interview progress.
-        </p>
-      </section>
+    <PageShell tone="jobs">
+      <PageHeader
+        title="Job Radar"
+        description="Track job leads, applications, follow-ups, and interview progress."
+      />
 
-      <form
-        onSubmit={handleSubmit}
-        className="grid gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          <input
-            className="rounded-xl border border-gray-200 px-4 py-2"
-            placeholder="Company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-          />
-
-          <input
-            className="rounded-xl border border-gray-200 px-4 py-2"
-            placeholder="Role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          />
-
-          <input
-            className="rounded-xl border border-gray-200 px-4 py-2"
-            placeholder="Job link"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
-
-          <input
-            className="rounded-xl border border-gray-200 px-4 py-2"
-            placeholder="Source: LinkedIn, Wellfound, RemoteOK..."
-            value={source}
-            onChange={(e) => setSource(e.target.value)}
-          />
+      <DashboardCard className="p-4 md:p-5">
+        <form onSubmit={handleSubmit} className="grid gap-3">
+          <div className="grid gap-3 md:gap-4 md:grid-cols-2">
+            <input className={inputClass} placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
+            <input className={inputClass} placeholder="Role" value={role} onChange={(e) => setRole(e.target.value)} />
+            <input className={inputClass} placeholder="Job link" value={link} onChange={(e) => setLink(e.target.value)} />
+            <input className={inputClass} placeholder="Source: LinkedIn, Wellfound, RemoteOK..." value={source} onChange={(e) => setSource(e.target.value)} />
+          </div>
 
           <input
             type="date"
-            className="rounded-xl border border-gray-200 px-4 py-2"
+            className={`${inputClass} md:w-1/2`}
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
           />
-        </div>
 
-        <textarea
-          className="min-h-24 rounded-xl border border-gray-200 px-4 py-2"
-          placeholder="Notes, requirements, salary, contact person..."
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
+          <textarea
+            className={`${inputClass} min-h-20`}
+            placeholder="Notes, requirements, salary, contact person..."
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
 
-        <button
-          type="submit"
-          className="w-fit rounded-xl bg-black px-5 py-2 text-sm font-medium text-white"
-        >
-          Save job
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-fit rounded-xl bg-gray-900 px-5 py-2 text-sm font-medium text-white transition hover:bg-gray-800"
+          >
+            Save job
+          </button>
+        </form>
+      </DashboardCard>
 
       {loading && <p className="text-sm text-gray-500">Loading job leads...</p>}
 
       {error && <p className="text-sm text-red-500">{error}</p>}
 
       {!loading && jobs.length === 0 && (
-        <p className="rounded-2xl border bg-white p-5 text-sm text-gray-500">
-          No job leads yet. The radar room is quiet. 📡
-        </p>
+        <DashboardCard className="p-4 md:p-5">
+          <p className="text-sm text-gray-500">
+            No job leads yet. The radar room is quiet. 📡
+          </p>
+        </DashboardCard>
       )}
 
-      <section className="grid gap-4">
+      <section className="grid gap-3 md:gap-4">
         {jobs.map((job) => {
           const isExpanded = expandedJobId === job.id;
 
           return (
-            <article
-              key={job.id}
-              className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
-            >
-              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <DashboardCard key={job.id} className="p-4 md:p-5">
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-800">{job.role}</h2>
+                  <h2 className="text-xl font-semibold text-gray-900">
+                    {job.role}
+                  </h2>
                   <p className="text-sm text-gray-600">{job.company}</p>
 
                   <div className="mt-3 flex flex-wrap gap-3 text-xs text-gray-500">
@@ -157,7 +131,7 @@ export default function JobsPage() {
                     onChange={(e) =>
                       changeStatus(job.id, e.target.value as JobStatus)
                     }
-                    className="rounded-xl border border-gray-200 px-3 py-2 text-sm"
+                    className="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 outline-none"
                   >
                     {statuses.map((status) => (
                       <option key={status} value={status}>
@@ -168,7 +142,7 @@ export default function JobsPage() {
 
                   <button
                     onClick={() => removeJob(job.id)}
-                    className="rounded-xl border border-red-200 px-3 py-2 text-sm text-red-600"
+                    className="rounded-xl border border-red-100 bg-white px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
                   >
                     Delete
                   </button>
@@ -176,28 +150,26 @@ export default function JobsPage() {
               </div>
 
               {job.notes && (
-                <div className="mt-4">
+                <div className="mt-3">
                   <button
                     type="button"
-                    onClick={() =>
-                      setExpandedJobId(isExpanded ? null : job.id)
-                    }
+                    onClick={() => setExpandedJobId(isExpanded ? null : job.id)}
                     className="text-sm font-medium text-gray-600 hover:text-gray-900"
                   >
-                    {isExpanded ? "Hide details ▲" : "details ▼"}
+                    {isExpanded ? "Hide details ▲" : "Details ▼"}
                   </button>
 
                   {isExpanded && (
-                    <p className="mt-3 whitespace-pre-line rounded-xl bg-gray-50 p-4 text-sm leading-6 text-gray-700">
+                    <p className="mt-3 whitespace-pre-line rounded-xl border border-gray-100 bg-gray-50 p-4 text-sm leading-6 text-gray-700">
                       {job.notes}
                     </p>
                   )}
                 </div>
               )}
-            </article>
+            </DashboardCard>
           );
         })}
       </section>
-    </main>
+    </PageShell>
   );
 }
