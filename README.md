@@ -1,13 +1,13 @@
 # Execution Dashboard
 
 A structured execution system built with Next.js, TypeScript, and Supabase.
+Designed to model real execution behavior:
+not just tasks, but consistency, momentum, and daily operational clarity.
 <p align="center">
   <a href="https://github.com/Mrylabs/execution-dashboard">
     <img src="https://raw.githubusercontent.com/Mrylabs/execution-dashboard/main/public/screenshots/showcase.png" width="1000" />
   </a>
 </p>
-Designed to model real execution behavior:
-not just tasks, but consistency, momentum, and daily operational clarity.
 
 🚀 **Live Demo**
 👉 https://execution-dashboard-kappa.vercel.app/
