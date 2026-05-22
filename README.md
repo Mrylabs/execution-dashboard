@@ -1,147 +1,173 @@
 # Execution Dashboard
 
-🚀 Live Demo  
+A structured execution system built with Next.js, TypeScript, and Supabase.
+
+Designed to model real execution behavior:
+not just tasks, but consistency, momentum, and daily operational clarity.
+
+🚀 **Live Demo**
 👉 https://execution-dashboard-kappa.vercel.app/
 
-Built to model real execution behavior — not just tasks, but consistency and daily action.
+---
 
-Now includes a responsive mobile layout for daily use on smaller screens.
+## ✨ Overview
+
+Execution Dashboard is a full-stack productivity system focused on:
+
+* daily execution
+* habit consistency
+* execution visibility
+* lightweight operational workflows
+* friction-reduced UI design
+
+The project evolved from a frontend-only prototype into a database-backed application with authentication, analytics, and modular dashboard architecture.
 
 ---
 
-## Try the dashboard:
-
-- Login (mock auth)
-- Add tasks
-- Track habits
-- Refresh and see local persistence
-
----
-
-> Note: This is a frontend-first version using localStorage for persistence.  
-> Built with Next.js and TypeScript, focused on modeling real user behavior through explicit state and persistence.
-
-The system models daily execution through:
-- explicit state transitions
-- weekly consistency tracking
-- clean interaction design focused on doing, not planning
-
-Mobile responsiveness is introduced in this version, with further UX improvements planned.
-
-<p align="center">
-  <a href="https://github.com/Mrylabs/execution-dashboard">
-    <img src="https://raw.githubusercontent.com/Mrylabs/execution-dashboard/main/public/screenshots/dashboard.png" width="550" />
-  </a>
-</p>
-
----
-
-## ✨ Features
-
-### 📊 Dashboard Overview
-- Daily execution summary (tasks + habits)
-- “Today’s Focus” highlighting active work
-- Real-time date and time awareness
-
-### ✅ Tasks System
-- Add, complete, and delete tasks
-- Active vs completed separation
-- Collapsible completed section
-- Local persistence
-
-### 🔁 Habit Tracking
-- Daily habit completion
-- Streak tracking
-- Prevents duplicate completion on the same day
-- Visual feedback for completion
-
-### ⚙️ Settings
-- Basic profile display
-- System information (local mode, storage, version)
+## 🧱 Core Features
 
 ### 🔐 Authentication
-- Lightweight demo login/logout
-- Protected routes
+
+* Supabase email/password authentication
+* Protected dashboard routes
+* Persistent user sessions
+
+### ✅ Tasks System
+
+* Create, complete, and delete tasks
+* Database-backed persistence
+* User-specific task management
+* Loading and async state handling
+
+### 🔁 Habit Tracking
+
+* Daily habit completion system
+* Explicit date-based logging
+* Weekly consistency modeling
+* Completion analytics support
+
+### 📊 Analytics Dashboard
+
+* Weekly consistency overview
+* Completion summaries
+* Execution visibility metrics
+
+### 🎯 Job Radar
+
+Track job opportunities directly inside the dashboard.
+
+Includes:
+
+* role/company tracking
+* application statuses
+* follow-up workflow
+* execution-oriented job hunt management
+
+### 📱 Responsive UI
+
+* Mobile-friendly dashboard experience
+* Reusable dashboard layout system
+* Modular card-based interface architecture
 
 ---
 
-## Engineering Highlights
+## 🏗 Engineering Highlights
 
-- Structured routing using Next.js App Router with layout-based protection
-- Implemented lightweight auth with route guards (frontend prototype)
-- Built custom hooks for task and habit state management
-- Modeled execution using explicit state and persistent storage
-- Designed reusable UI components for scalable interface structure
+### Architecture
+
+* Next.js App Router
+* Layout-based route protection
+* Reusable dashboard shell/components
+* Custom hooks for async orchestration
+* Shared TypeScript domain models
+
+### State & Data Modeling
+
+* Explicit state transitions
+* User-scoped database operations
+* Habit logs modeled as source-of-truth data
+* Derived analytics from persistent logs
+
+### Backend & Persistence
+
+* Supabase integration
+* PostgreSQL database
+* Row Level Security (RLS)
+* Real authentication flow
+
+### UI Engineering
+
+* Tailwind CSS
+* Responsive layouts
+* Reusable dashboard primitives
+* Focused low-friction interaction design
 
 ---
 
 ## 🧠 Philosophy
 
-This is not a to-do app.
+This is not a traditional to-do app.
 
-It is an **execution system**.
+It is an execution system.
 
-- Execution over planning  
-- Consistency over perfection  
-- Visibility over pressure  
+Principles behind the project:
 
-The UI is intentionally minimal to reduce friction and cognitive load.
-The goal is not to track tasks, but to make execution visible and measurable.
+* Execution over planning
+* Consistency over perfection
+* Visibility over pressure
 
----
-
-## 📸 Screenshots
-
-### Landing
-![Landing](public/screenshots/landing.png)
-
-### Login
-![Login](public/screenshots/login.png)
-
-### Dashboard
-![Dashboard](public/screenshots/dashboard.png)
-
-### Tasks
-![Tasks Active](public/screenshots/tasks-active.png)
-![Tasks Completed](public/screenshots/tasks-completed.png)
-
-### Habits
-![Habits](public/screenshots/habits.png)
-
-### Settings
-![Settings](public/screenshots/settings.png)
+The UI is intentionally designed to reduce cognitive friction and make execution behavior visible over time.
 
 ---
 
 ## 🛠 Tech Stack
 
-- Next.js (App Router)
-- React + TypeScript
-- Tailwind CSS
-- LocalStorage (state persistence)
+### Frontend
+
+* Next.js (App Router)
+* React
+* TypeScript
+* Tailwind CSS
+
+### Backend / Infrastructure
+
+* Supabase
+* PostgreSQL
+* Row Level Security (RLS)
+
+### Deployment
+
+* Vercel
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Local Development
+
 ```bash
 npm install
 npm run dev
 ```
----
-
-## Future Improvements
-
-- Real authentication with JWT and backend integration
-- Cloud sync instead of localStorage
-- Weekly analytics view
-- AI-assisted insights
 
 ---
 
-## Why This Project
+## Future Roadmap
 
-This project was built to explore how daily execution can be structured through:
+* AI-generated weekly execution insights
+* Expanded analytics visualizations
+* Recurring execution systems
+* Smarter job tracking workflows
+* Team/shared execution spaces
 
-- State modeling
-- Interaction design
-- Consistency tracking
+---
+
+## Why This Project Exists
+
+This project was built to explore how execution systems can be modeled through:
+
+* state architecture
+* behavioral tracking
+* interaction design
+* persistence layers
+* operational clarity
+
+It also serves as a practical exploration of full-stack product engineering using modern React ecosystem tooling.
