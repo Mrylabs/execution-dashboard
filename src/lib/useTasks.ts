@@ -2,7 +2,14 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Task } from "./tasks";
-import { fetchTasks as fetchTasksFromDb, createTask as createTaskInDb, updateTaskCompletion as updateTaskInDb, deleteTask as deleteTaskInDb } from "./tasks";
+import {
+  fetchTasks as fetchTasksFromDb,
+  createTask as createTaskInDb,
+  updateTaskCompletion as updateTaskInDb,
+  updateTaskPriority as updateTaskPriorityInDb,
+  updateTaskStatus as updateTaskStatusInDb,
+  deleteTask as deleteTaskInDb,
+} from "./tasks";
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -27,7 +34,11 @@ export function useTasks() {
   }, []);
 
   useEffect(() => {
-    void fetchTasks();
+    const timeoutId = window.setTimeout(() => {
+      void fetchTasks();
+    }, 0);
+
+    return () => window.clearTimeout(timeoutId);
   }, [fetchTasks]);
 
   const addTask = useCallback(async (title: string) => {
@@ -90,6 +101,46 @@ export function useTasks() {
     [fetchTasks]
   );
 
+  const updateTaskStatus = useCallback(
+    async (id: string, status: Task["status"]) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await updateTaskStatusInDb(id, status);
+        await fetchTasks();
+      } catch (err: unknown) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : String(err)
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchTasks]
+  );
+
+  const updateTaskPriority = useCallback(
+    async (id: string, priority: Task["priority"]) => {
+      setLoading(true);
+      setError(null);
+      try {
+        await updateTaskPriorityInDb(id, priority);
+        await fetchTasks();
+      } catch (err: unknown) {
+        setError(
+          err instanceof Error
+            ? err.message
+            : String(err)
+        );
+      } finally {
+        setLoading(false);
+      }
+    },
+    [fetchTasks]
+  );
+
   return {
     tasks,
     loading,
@@ -97,6 +148,8 @@ export function useTasks() {
     addTask,
     toggleTask,
     deleteTask: removeTask,
+    updateTaskStatus,
+    updateTaskPriority,
     refetchTasks: fetchTasks,
   };
 }

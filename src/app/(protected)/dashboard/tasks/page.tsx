@@ -8,7 +8,16 @@ import PageShell from "@/components/dashboard/PageShell";
 import PageHeader from "@/components/dashboard/PageHeader";
 
 export default function TasksPage() {
-  const { tasks, loading, error, addTask, toggleTask, deleteTask } = useTasks();
+  const {
+    tasks,
+    loading,
+    error,
+    addTask,
+    toggleTask,
+    deleteTask,
+    updateTaskStatus,
+    updateTaskPriority,
+  } = useTasks();
   const [title, setTitle] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,11 +38,40 @@ export default function TasksPage() {
     await deleteTask(id);
   };
 
+  const handleStatusChange = async (id: string, status: Task["status"]) => {
+    await updateTaskStatus(id, status);
+  };
+
+  const handlePriorityChange = async (
+    id: string,
+    priority: Task["priority"]
+  ) => {
+    await updateTaskPriority(id, priority);
+  };
+
+  const todayDate = new Date().toDateString();
+  const activeTasks = tasks.filter((task) => task.status === "active");
+  const focusTasks = [
+    ...activeTasks.filter((task) => task.priority === "high"),
+    ...activeTasks.filter((task) => task.priority === "medium"),
+    ...activeTasks.filter((task) => task.priority === "low"),
+  ].slice(0, 3);
+  const focusTaskIds = new Set(focusTasks.map((task) => task.id));
+  const remainingActiveTasks = activeTasks.filter(
+    (task) => !focusTaskIds.has(task.id)
+  );
+  const tomorrowTasks = tasks.filter((task) => task.status === "tomorrow");
+  const completedTodayTasks = tasks.filter((task) => {
+    if (task.status !== "completed" || !task.completed_at) return false;
+
+    return new Date(task.completed_at).toDateString() === todayDate;
+  });
+
   return (
     <PageShell tone="tasks">
       <PageHeader
         title="Tasks"
-        description="Capture and complete today’s maintenance items."
+        description="Choose the work, protect the next move, and close the loop."
       />
 
       <form onSubmit={handleSubmit} className="flex gap-2">
@@ -65,12 +103,91 @@ export default function TasksPage() {
       )}
 
       {!loading && !error && (
-        <TaskList
-          tasks={tasks}
-          onToggle={handleToggle}
-          onDelete={handleDelete}
-        />
+        <div className="grid gap-6">
+          <TaskSection
+            title="Focus 3"
+            description="The three tasks most likely to move the day forward."
+          >
+            <TaskList
+              tasks={focusTasks}
+              emptyTitle="No focus tasks yet"
+              emptyDescription="Set an active task to high or medium priority to pull it into focus."
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+              onStatusChange={handleStatusChange}
+              onPriorityChange={handlePriorityChange}
+            />
+          </TaskSection>
+
+          <TaskSection
+            title="Active Tasks"
+            description="Available work outside the current focus set."
+          >
+            <TaskList
+              tasks={remainingActiveTasks}
+              emptyTitle="No active tasks waiting"
+              emptyDescription="Add a task or move one back from tomorrow."
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+              onStatusChange={handleStatusChange}
+              onPriorityChange={handlePriorityChange}
+            />
+          </TaskSection>
+
+          <TaskSection
+            title="Tomorrow"
+            description="Deferred without disappearing."
+          >
+            <TaskList
+              tasks={tomorrowTasks}
+              emptyTitle="Nothing parked for tomorrow"
+              emptyDescription="Move active tasks here when they are real, but not for today."
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+              onStatusChange={handleStatusChange}
+              onPriorityChange={handlePriorityChange}
+            />
+          </TaskSection>
+
+          <TaskSection
+            title="Completed Today"
+            description="Closed today based on completion time."
+          >
+            <TaskList
+              tasks={completedTodayTasks}
+              emptyTitle="No completions logged today"
+              emptyDescription="Completed tasks will land here when checked off."
+              onToggle={handleToggle}
+              onDelete={handleDelete}
+              onStatusChange={handleStatusChange}
+              onPriorityChange={handlePriorityChange}
+            />
+          </TaskSection>
+        </div>
       )}
     </PageShell>
+  );
+}
+
+type TaskSectionProps = {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+};
+
+function TaskSection({
+  title,
+  description,
+  children,
+}: TaskSectionProps) {
+  return (
+    <section className="space-y-3">
+      <div>
+        <h2 className="text-base font-semibold text-gray-950">{title}</h2>
+        <p className="mt-1 text-sm text-gray-500">{description}</p>
+      </div>
+
+      {children}
+    </section>
   );
 }

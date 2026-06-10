@@ -31,9 +31,26 @@ export default function DashboardPage() {
     updateCycleRhythm,
   } = useTodayPersonalization();
 
-  const activeTasks = tasks.filter((task) => !task.completed);
-  const focusTasks = activeTasks.slice(0, 3).map((task) => task.title);
-  const completedTaskCount = tasks.filter((task) => task.completed).length;
+  const todayDate = new Date().toDateString();
+  const activeTasks = tasks.filter((task) => task.status === "active");
+  const focusTasks = [
+    ...activeTasks.filter(
+      (task) => !task.completed && task.priority === "high"
+    ),
+    ...activeTasks.filter(
+      (task) => !task.completed && task.priority === "medium"
+    ),
+    ...activeTasks.filter(
+      (task) => !task.completed && task.priority === "low"
+    ),
+  ]
+    .slice(0, 3)
+    .map((task) => task.title);
+  const completedTaskCount = tasks.filter((task) => {
+    if (task.status !== "completed" || !task.completed_at) return false;
+
+    return new Date(task.completed_at).toDateString() === todayDate;
+  }).length;
   const weeklyHabitPercentage = getWeeklyCompletionPercentage(habits, logs);
 
   return (
