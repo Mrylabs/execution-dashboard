@@ -19,20 +19,20 @@ const accentClasses = {
 
 const prominenceClasses = {
   primary:
-    "border-blue-100/70 bg-blue-50/55 p-7 shadow-sm ring-1 ring-blue-100/60 md:p-9",
+    "border-blue-100/70 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/60 md:px-5 md:py-4",
   secondary:
-    "border-amber-100/80 bg-amber-50/60 p-6 shadow-sm ring-1 ring-amber-100/70 md:p-8",
+    "border-amber-100/80 bg-amber-50/60 px-4 py-3.5 shadow-sm ring-1 ring-amber-100/70 md:px-5 md:py-4",
   standard:
-    "border-gray-200 bg-white p-5 shadow-sm md:p-6",
+    "border-gray-200 bg-white p-4 shadow-sm md:p-5",
   quiet:
-    "border-gray-100 bg-gray-50/70 p-4 shadow-none md:p-5",
+    "border-gray-100 bg-gray-50/70 p-3 shadow-none md:p-4",
   compact:
-    "border-gray-100 bg-white p-4 shadow-sm md:p-4",
+    "border-gray-100 bg-white p-3 shadow-sm md:p-3",
 };
 
 const titleClasses = {
   primary: "text-base font-semibold text-blue-950/80",
-  secondary: "text-xl font-semibold text-gray-950 md:text-2xl",
+  secondary: "text-lg font-semibold text-gray-950 md:text-xl",
   standard: "text-lg font-semibold text-gray-950",
   quiet: "text-base font-semibold text-gray-800",
   compact: "text-sm font-semibold text-gray-800",
@@ -53,17 +53,17 @@ export default function TodayCard({
       <div
         className={
           prominence === "compact"
-            ? "mb-3"
+            ? "mb-2"
             : prominence === "quiet"
-              ? "mb-4"
-              : "mb-6"
+              ? "mb-3"
+              : "mb-3"
         }
       >
         <div>
           {eyebrow && (
             <p
               className={`inline-flex rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal ${
-                prominence === "compact" ? "mb-2" : "mb-3"
+                prominence === "compact" ? "mb-1.5" : "mb-2"
               } ${accentClasses[accent]}`}
             >
               {eyebrow}

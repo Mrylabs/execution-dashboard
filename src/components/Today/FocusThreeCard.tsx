@@ -20,24 +20,24 @@ export default function FocusThreeCard({
       eyebrow={`${activeTaskCount} active`}
       accent="amber"
       prominence="secondary"
-      className="md:col-span-6 lg:col-span-8 lg:row-span-3 lg:min-h-[520px]"
+      className="h-full md:col-span-6 lg:col-span-8 lg:row-span-3"
     >
-      <div className="mb-8 max-w-lg text-sm leading-6 text-amber-950/60">
+      <div className="mb-3 max-w-lg text-xs leading-5 text-amber-950/60">
         Three deliberate moves. Enough to create momentum, small enough to stay
         human.
       </div>
 
-      <ol className="space-y-5">
+      <ol className="space-y-2">
         {displayTasks.slice(0, 3).map((task, index) => (
           <li
             key={`${task}-${index}`}
-            className="flex items-start gap-4 rounded-xl border border-amber-100/80 bg-white/80 px-5 py-5 md:px-6 md:py-6"
+            className="flex items-start gap-3 rounded-xl border border-amber-100/80 bg-white/80 px-3 py-2"
           >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100/70 text-sm font-semibold text-amber-800">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-100/70 text-xs font-semibold text-amber-800">
               {index + 1}
             </span>
 
-            <span className="pt-0.5 text-base font-medium leading-7 text-gray-950 md:text-lg">
+            <span className="pt-0.5 text-sm font-medium leading-6 text-gray-950 md:text-base">
               {task}
             </span>
           </li>

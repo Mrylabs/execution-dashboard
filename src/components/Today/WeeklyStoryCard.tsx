@@ -44,10 +44,10 @@ export default function WeeklyStoryCard({
       eyebrow="This week"
       accent="blue"
       prominence="primary"
-      className="md:col-span-6 lg:col-span-12 lg:min-h-[420px]"
+      className="h-full md:col-span-6 lg:col-span-12"
     >
-      <div className="flex min-h-[300px] flex-col justify-between gap-10">
-        <div className="space-y-5">
+      <div className="flex flex-col justify-between gap-4">
+        <div className="space-y-3">
           <div className="flex justify-end">
             {editing ? (
               <div className="flex items-center gap-3">
@@ -78,27 +78,27 @@ export default function WeeklyStoryCard({
           </div>
 
           {editing ? (
-            <div className="space-y-4">
+            <div className="space-y-3">
               <textarea
                 value={headlineDraft}
                 onChange={(event) => setHeadlineDraft(event.target.value)}
-                className="min-h-28 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-3xl font-semibold leading-tight text-blue-950 outline-none focus:border-blue-200 md:text-5xl"
+                className="min-h-20 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-2xl font-semibold leading-tight text-blue-950 outline-none focus:border-blue-200 md:text-3xl"
                 aria-label="Weekly story headline"
               />
               <textarea
                 value={noteDraft}
                 onChange={(event) => setNoteDraft(event.target.value)}
-                className="min-h-24 w-full max-w-xl resize-none rounded-xl border border-blue-100 bg-white/70 px-4 py-3 text-base leading-8 text-blue-950/70 outline-none focus:border-blue-200"
+                className="min-h-16 w-full max-w-xl resize-none rounded-xl border border-blue-100 bg-white/70 px-4 py-2.5 text-sm leading-6 text-blue-950/70 outline-none focus:border-blue-200"
                 aria-label="Weekly story note"
               />
             </div>
           ) : (
             <>
-              <p className="max-w-2xl text-3xl font-semibold leading-tight text-blue-950 md:text-5xl">
+              <p className="max-w-2xl text-2xl font-semibold leading-tight text-blue-950 md:text-3xl">
                 {weeklyStory.headline}
               </p>
 
-              <p className="max-w-xl text-base leading-8 text-blue-950/65">
+              <p className="max-w-xl text-sm leading-6 text-blue-950/65">
                 Consistency is at{" "}
                 <span className="font-semibold text-blue-950">
                   {weeklyHabitPercentage}%
@@ -110,12 +110,12 @@ export default function WeeklyStoryCard({
         </div>
 
         <div className="max-w-xl">
-          <div className="mb-3 flex items-center justify-between text-xs font-medium uppercase tracking-normal text-blue-900/55">
+          <div className="mb-1.5 flex items-center justify-between text-xs font-medium uppercase tracking-normal text-blue-900/55">
             <span>Weekly rhythm</span>
             <span>{weeklyHabitPercentage}%</span>
           </div>
 
-          <div className="h-3 overflow-hidden rounded-full bg-white/80">
+          <div className="h-2 overflow-hidden rounded-full bg-white/80">
             <div
               className="h-full rounded-full bg-blue-500/80 transition-all"
               style={{ width: `${weeklyHabitPercentage}%` }}

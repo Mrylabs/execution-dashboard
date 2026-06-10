@@ -5,7 +5,6 @@ import CompletedTodayCard from "@/components/Today/CompletedTodayCard";
 import FocusThreeCard from "@/components/Today/FocusThreeCard";
 import HabitsSnapshotCard from "@/components/Today/HabitsSnapshotCard";
 import QuickDumpCard from "@/components/Today/QuickDumpCard";
-import TodayGrid from "@/components/Today/TodayGrid";
 import TodayHeader from "@/components/Today/TodayHeader";
 import WeeklyStoryCard from "@/components/Today/WeeklyStoryCard";
 import { getWeeklyCompletionPercentage } from "@/lib/analytics";
@@ -63,23 +62,41 @@ export default function DashboardPage() {
         onSaveCycleRhythm={updateCycleRhythm}
       />
 
-      <TodayGrid>
-        <WeeklyStoryCard
-          weeklyStory={personalization.weeklyStory}
-          weeklyHabitPercentage={weeklyHabitPercentage}
-          onSaveWeeklyStory={updateWeeklyStory}
-        />
-        <FocusThreeCard
-          tasks={focusTasks}
-          activeTaskCount={activeTasks.length}
-        />
-        <HabitsSnapshotCard
-          completedToday={completedTodayHabitIds.size}
-          totalHabits={habits.length}
-        />
-        <CompletedTodayCard completedCount={completedTaskCount} />
-        <QuickDumpCard />
-      </TodayGrid>
+      <section className="-mt-1 grid gap-2.5">
+        <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="h-full">
+            <WeeklyStoryCard
+              weeklyStory={personalization.weeklyStory}
+              weeklyHabitPercentage={weeklyHabitPercentage}
+              onSaveWeeklyStory={updateWeeklyStory}
+            />
+          </div>
+
+          <div className="h-full">
+            <FocusThreeCard
+              tasks={focusTasks}
+              activeTaskCount={activeTasks.length}
+            />
+          </div>
+        </div>
+
+        <div className="grid items-stretch gap-4 lg:grid-cols-3">
+          <div className="h-full">
+            <HabitsSnapshotCard
+              completedToday={completedTodayHabitIds.size}
+              totalHabits={habits.length}
+            />
+          </div>
+
+          <div className="h-full">
+            <CompletedTodayCard completedCount={completedTaskCount} />
+          </div>
+
+          <div className="h-full">
+            <QuickDumpCard />
+          </div>
+        </div>
+      </section>
     </PageShell>
   );
 }

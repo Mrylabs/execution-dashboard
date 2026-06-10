@@ -18,11 +18,11 @@ export default function HabitsSnapshotCard({
       eyebrow="Today"
       accent="green"
       prominence="compact"
-      className="md:col-span-3 lg:col-span-4 border-emerald-100 bg-emerald-50/40"
+      className="h-full md:col-span-3 lg:col-span-4 border-emerald-100 bg-emerald-50/40"
     >
-      <div className="space-y-2.5">
+      <div className="space-y-2">
         <div>
-          <p className="text-2xl font-semibold text-gray-950">
+          <p className="text-xl font-semibold text-gray-950">
             {completedToday}/{totalHabits}
           </p>
 

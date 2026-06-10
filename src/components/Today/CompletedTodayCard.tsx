@@ -13,10 +13,10 @@ export default function CompletedTodayCard({
       eyebrow="Wins"
       accent="blue"
       prominence="compact"
-      className="md:col-span-3 lg:col-span-4"
+      className="h-full md:col-span-3 lg:col-span-4"
     >
       <div>
-        <p className="text-2xl font-semibold text-gray-950">
+        <p className="text-xl font-semibold text-gray-950">
           {completedCount}
         </p>
 

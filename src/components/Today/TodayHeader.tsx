@@ -66,7 +66,7 @@ export default function TodayHeader({
   }
 
   return (
-    <header className="space-y-2 pb-2">
+    <header className="space-y-1 pb-0">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-2xl font-semibold tracking-normal text-gray-950 md:text-3xl">
           {greeting}
@@ -140,7 +140,7 @@ export default function TodayHeader({
         </div>
       ) : (
         <div className="flex items-center gap-2">
-          <p className="text-sm leading-6 text-gray-500">
+          <p className="text-sm leading-5 text-gray-500">
             {reminder}
           </p>
           <button

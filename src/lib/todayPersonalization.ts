@@ -131,7 +131,7 @@ export function getCycleRhythmLabel(cycleRhythm: CycleRhythm) {
 
   if (!cycleDay || !phase) return "Set cycle";
 
-  return `Day ${cycleDay} · ${phase}`;
+  return `Day ${cycleDay} - ${phase}`;
 }
 
 export function readTodayPersonalization(): TodayPersonalization {
