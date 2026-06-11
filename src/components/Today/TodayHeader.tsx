@@ -108,6 +108,7 @@ export default function TodayHeader({
           <button
             type="button"
             onClick={() => setEditingCycle(true)}
+            title="Track your cycle if it's relevant to you."
             className="shrink-0 rounded-full border border-gray-200 bg-white/70 px-3 py-1 text-xs font-medium text-gray-500 shadow-sm transition hover:text-gray-700"
           >
             {getCycleRhythmLabel(cycleRhythm)}
