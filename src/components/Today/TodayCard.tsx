@@ -19,9 +19,9 @@ const accentClasses = {
 
 const prominenceClasses = {
   primary:
-    "border-blue-100/70 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/60 md:px-5 md:py-4",
+    "border-blue-100/55 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/45 md:px-5 md:py-4",
   secondary:
-    "border-amber-100/80 bg-amber-50/60 px-4 py-3.5 shadow-sm ring-1 ring-amber-100/70 md:px-5 md:py-4",
+    "border-amber-100/65 bg-amber-50/60 px-4 py-3.5 shadow-sm ring-1 ring-amber-100/55 md:px-5 md:py-4",
   standard:
     "border-gray-200 bg-white p-4 shadow-sm md:p-5",
   quiet:

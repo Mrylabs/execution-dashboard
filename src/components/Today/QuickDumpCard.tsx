@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import TodayCard from "./TodayCard";
+import DashboardCard from "@/components/dashboard/DashboardCard";
 import { supabase } from "@/lib/supabase";
 
 type QuickDumpItem = {
@@ -106,13 +106,19 @@ export default function QuickDumpCard() {
   }
 
   return (
-    <TodayCard
-      title="Quick Dump"
-      eyebrow="Capture"
-      accent="slate"
-      prominence="compact"
-      className="h-full md:col-span-3 lg:col-span-4"
+    <DashboardCard
+      className="h-full overflow-hidden border-gray-100 bg-white p-2.5 shadow-sm md:col-span-3 md:p-2.5 lg:col-span-4"
     >
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-semibold text-gray-800">
+          Quick Dump
+        </h2>
+
+        <p className="inline-flex shrink-0 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal text-gray-600">
+          Capture
+        </p>
+      </div>
+
       <div className="space-y-2">
         <div className="flex gap-2">
           <input
@@ -177,6 +183,6 @@ export default function QuickDumpCard() {
           )
         )}
       </div>
-    </TodayCard>
+    </DashboardCard>
   );
 }

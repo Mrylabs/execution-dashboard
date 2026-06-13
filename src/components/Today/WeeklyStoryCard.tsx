@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { WeeklyStory } from "@/lib/todayPersonalization";
-import TodayCard from "./TodayCard";
+import DashboardCard from "@/components/dashboard/DashboardCard";
 
 type WeeklyStoryCardProps = {
   weeklyStory: WeeklyStory;
@@ -39,16 +39,16 @@ export default function WeeklyStoryCard({
   }
 
   return (
-    <TodayCard
-      title={weeklyStory.title}
-      eyebrow="This week"
-      accent="blue"
-      prominence="primary"
-      className="h-full md:col-span-6 lg:col-span-12"
+    <DashboardCard
+      className="h-full overflow-hidden border-blue-100/55 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/45 md:col-span-6 md:px-5 md:py-4 lg:col-span-12"
     >
       <div className="flex flex-col justify-between gap-4">
         <div className="space-y-3">
-          <div className="flex justify-end">
+          <div className="flex items-center justify-between">
+            <p className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal text-blue-700">
+              This week
+            </p>
+
             {editing ? (
               <div className="flex items-center gap-3">
                 <button
@@ -70,9 +70,10 @@ export default function WeeklyStoryCard({
               <button
                 type="button"
                 onClick={() => setEditing(true)}
-                className="text-xs text-blue-950/45 transition hover:text-blue-950/70"
+                className="flex h-6 w-6 items-center justify-center rounded-full text-sm text-slate-300 opacity-70 transition hover:bg-slate-50 hover:text-slate-500 hover:opacity-100"
+                aria-label="Edit weekly story"
               >
-                Edit
+                <span aria-hidden="true">✎</span>
               </button>
             )}
           </div>
@@ -82,7 +83,7 @@ export default function WeeklyStoryCard({
               <textarea
                 value={headlineDraft}
                 onChange={(event) => setHeadlineDraft(event.target.value)}
-                className="min-h-20 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-2xl font-semibold leading-tight text-blue-950 outline-none focus:border-blue-200 md:text-3xl"
+                className="min-h-20 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-2xl font-semibold leading-snug text-blue-950 outline-none focus:border-blue-200 md:text-3xl"
                 aria-label="Weekly story headline"
               />
               <textarea
@@ -94,7 +95,7 @@ export default function WeeklyStoryCard({
             </div>
           ) : (
             <>
-              <p className="max-w-2xl text-2xl font-semibold leading-tight text-blue-950 md:text-3xl">
+              <p className="max-w-2xl text-2xl font-semibold leading-snug text-blue-950 md:text-3xl">
                 {weeklyStory.headline}
               </p>
 
@@ -123,6 +124,6 @@ export default function WeeklyStoryCard({
           </div>
         </div>
       </div>
-    </TodayCard>
+    </DashboardCard>
   );
 }

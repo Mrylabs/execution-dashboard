@@ -53,7 +53,7 @@ export default function DashboardPage() {
   const weeklyHabitPercentage = getWeeklyCompletionPercentage(habits, logs);
 
   return (
-    <PageShell tone="default">
+    <PageShell tone="default" className="space-y-4 !p-3 md:!p-4">
       <TodayHeader
         greeting={getGreeting()}
         reminder={personalization.personalReminder}
@@ -62,25 +62,23 @@ export default function DashboardPage() {
         onSaveCycleRhythm={updateCycleRhythm}
       />
 
-      <section className="-mt-1 grid gap-2.5">
-        <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="h-full">
-            <WeeklyStoryCard
-              weeklyStory={personalization.weeklyStory}
-              weeklyHabitPercentage={weeklyHabitPercentage}
-              onSaveWeeklyStory={updateWeeklyStory}
-            />
-          </div>
-
-          <div className="h-full">
-            <FocusThreeCard
-              tasks={focusTasks}
-              activeTaskCount={activeTasks.length}
-            />
-          </div>
+      <section className="-mt-1 grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_auto] lg:items-stretch">
+        <div className="order-1 h-full lg:col-start-1 lg:row-start-1">
+          <WeeklyStoryCard
+            weeklyStory={personalization.weeklyStory}
+            weeklyHabitPercentage={weeklyHabitPercentage}
+            onSaveWeeklyStory={updateWeeklyStory}
+          />
         </div>
 
-        <div className="grid items-stretch gap-4 lg:grid-cols-3">
+        <div className="order-2 h-full lg:col-start-2 lg:row-start-1">
+          <FocusThreeCard
+            tasks={focusTasks}
+            activeTaskCount={activeTasks.length}
+          />
+        </div>
+
+        <div className="order-3 grid gap-3 sm:grid-cols-2 lg:col-start-1 lg:row-start-2">
           <div className="h-full">
             <HabitsSnapshotCard
               completedToday={completedTodayHabitIds.size}
@@ -91,10 +89,10 @@ export default function DashboardPage() {
           <div className="h-full">
             <CompletedTodayCard completedCount={completedTaskCount} />
           </div>
+        </div>
 
-          <div className="h-full">
-            <QuickDumpCard />
-          </div>
+        <div className="order-4 h-full lg:col-start-2 lg:row-start-2">
+          <QuickDumpCard />
         </div>
       </section>
     </PageShell>

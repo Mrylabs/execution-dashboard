@@ -109,7 +109,7 @@ export default function TodayHeader({
             type="button"
             onClick={() => setEditingCycle(true)}
             title="Track your cycle if it's relevant to you."
-            className="shrink-0 rounded-full border border-gray-200 bg-white/70 px-3 py-1 text-xs font-medium text-gray-500 shadow-sm transition hover:text-gray-700"
+            className="shrink-0 rounded-full border border-pink-100 bg-pink-50 px-3 py-1 text-xs font-medium text-pink-700 shadow-sm transition hover:text-pink-800"
           >
             {getCycleRhythmLabel(cycleRhythm)}
           </button>
@@ -147,9 +147,10 @@ export default function TodayHeader({
           <button
             type="button"
             onClick={() => setEditingReminder(true)}
-            className="text-xs text-gray-400 transition hover:text-gray-600"
+            className="flex h-6 w-6 items-center justify-center rounded-full text-sm text-slate-300 opacity-70 transition hover:bg-slate-50 hover:text-slate-500 hover:opacity-100"
+            aria-label="Edit personal reminder"
           >
-            Edit
+            <span aria-hidden="true">✎</span>
           </button>
         </div>
       )}

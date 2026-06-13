@@ -1,5 +1,6 @@
 type PageShellProps = {
   children: React.ReactNode;
+  className?: string;
   tone?: "default" | "tasks" | "habits" | "analytics" | "jobs";
 };
 
@@ -13,11 +14,12 @@ const toneClasses = {
 
 export default function PageShell({
   children,
+  className = "",
   tone = "default",
 }: PageShellProps) {
   return (
     <section
-      className={`mr-auto max-w-5xl space-y-6 rounded-3xl p-4 md:p-6 ${toneClasses[tone]}`}
+      className={`mr-auto max-w-5xl space-y-6 rounded-3xl p-4 md:p-6 ${toneClasses[tone]} ${className}`}
     >
       {children}
     </section>
