@@ -73,9 +73,11 @@ export default function TopBar() {
       <div ref={dropdownRef} className="relative">
         <button
           onClick={() => setOpen((prev) => !prev)}
-          className="h-8 w-8 rounded-full bg-gray-300 ring-2 ring-transparent transition hover:ring-gray-200"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-slate-100 font-semibold text-slate-700 shadow-sm ring-2 ring-transparent transition hover:ring-slate-200"
           aria-label="Open user menu"
-        />
+        >
+          M
+        </button>
 
         {open && (
           <div className="absolute right-0 z-10 mt-2 w-40 rounded-xl border bg-white shadow-lg">
