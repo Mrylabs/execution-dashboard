@@ -15,7 +15,7 @@ export type TodayPersonalization = {
   cycleRhythm: CycleRhythm;
 };
 
-const STORAGE_KEY = "execution-dashboard:today-personalization";
+const STORAGE_KEY_SUFFIX = "today-personalization";
 const DEFAULT_CYCLE_LENGTH = 28;
 
 export const defaultTodayPersonalization: TodayPersonalization = {
@@ -134,13 +134,21 @@ export function getCycleRhythmLabel(cycleRhythm: CycleRhythm) {
   return `Day ${cycleDay} - ${phase}`;
 }
 
-export function readTodayPersonalization(): TodayPersonalization {
+export function getTodayPersonalizationStorageKey(userId?: string | null) {
+  return `execution-dashboard:${userId ?? "anonymous"}:${STORAGE_KEY_SUFFIX}`;
+}
+
+export function readTodayPersonalization(
+  userId?: string | null
+): TodayPersonalization {
   if (typeof window === "undefined") {
     return defaultTodayPersonalization;
   }
 
   try {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const stored = window.localStorage.getItem(
+      getTodayPersonalizationStorageKey(userId)
+    );
     if (!stored) return defaultTodayPersonalization;
 
     return mergeTodayPersonalization(JSON.parse(stored));
@@ -150,12 +158,13 @@ export function readTodayPersonalization(): TodayPersonalization {
 }
 
 export function writeTodayPersonalization(
-  personalization: TodayPersonalization
+  personalization: TodayPersonalization,
+  userId?: string | null
 ) {
   if (typeof window === "undefined") return;
 
   window.localStorage.setItem(
-    STORAGE_KEY,
+    getTodayPersonalizationStorageKey(userId),
     JSON.stringify(personalization)
   );
 }

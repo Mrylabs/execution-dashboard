@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TodayCard from "./TodayCard";
+import { supabase } from "@/lib/supabase";
 
 type QuickDumpItem = {
   id: string;
@@ -9,7 +10,11 @@ type QuickDumpItem = {
   createdAt: string;
 };
 
-const QUICK_DUMP_STORAGE_KEY = "execution-dashboard:quick-dump-items";
+const QUICK_DUMP_STORAGE_KEY_SUFFIX = "quick-dump-items";
+
+function getQuickDumpStorageKey(userId?: string | null) {
+  return `execution-dashboard:${userId ?? "anonymous"}:${QUICK_DUMP_STORAGE_KEY_SUFFIX}`;
+}
 
 function createQuickDumpId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
@@ -23,32 +28,52 @@ export default function QuickDumpCard() {
   const [input, setInput] = useState("");
   const [items, setItems] = useState<QuickDumpItem[]>([]);
   const [expanded, setExpanded] = useState(false);
+  const [storageUserId, setStorageUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(QUICK_DUMP_STORAGE_KEY);
-      if (!stored) return;
+    let mounted = true;
 
-      const parsed = JSON.parse(stored);
-      if (Array.isArray(parsed)) {
-        setItems(
-          parsed.filter(
-            (item): item is QuickDumpItem =>
-              typeof item?.id === "string" &&
-              typeof item.text === "string" &&
-              typeof item.createdAt === "string"
-          )
-        );
+    async function loadItems() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!mounted) return;
+
+      const userId = user?.id ?? null;
+      setStorageUserId(userId);
+
+      try {
+        const stored = window.localStorage.getItem(getQuickDumpStorageKey(userId));
+        if (!stored) return;
+
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          setItems(
+            parsed.filter(
+              (item): item is QuickDumpItem =>
+                typeof item?.id === "string" &&
+                typeof item.text === "string" &&
+                typeof item.createdAt === "string"
+            )
+          );
+        }
+      } catch {
+        setItems([]);
       }
-    } catch {
-      setItems([]);
     }
+
+    void loadItems();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   function saveItems(nextItems: QuickDumpItem[]) {
     try {
       window.localStorage.setItem(
-        QUICK_DUMP_STORAGE_KEY,
+        getQuickDumpStorageKey(storageUserId),
         JSON.stringify(nextItems)
       );
     } catch {

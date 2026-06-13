@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, FormEvent } from "react";
+import { useRef, useState, FormEvent } from "react";
 import { signIn, signInAsDemo, signUp } from "@/lib/auth";
 
 export default function LoginPage() {
@@ -13,31 +13,43 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loadingAction, setLoadingAction] = useState<"demo" | "form" | null>(null);
+  const authActionLockRef = useRef(false);
   const isBusy = loadingAction !== null;
+  const isDemoLoading = loadingAction === "demo";
+  const isFormLoading = loadingAction === "form";
 
   async function handleDemoSignIn() {
+    if (authActionLockRef.current || isBusy) return;
+    authActionLockRef.current = true;
+
     setError(null);
     setSuccess(null);
     setLoadingAction("demo");
+    let shouldUnlock = true;
 
     try {
       await signInAsDemo();
       router.replace("/dashboard");
+      shouldUnlock = false;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unable to start demo session");
-      setLoadingAction(null);
-      return;
+    } finally {
+      if (shouldUnlock) {
+        authActionLockRef.current = false;
+        setLoadingAction(null);
+      }
     }
-
-    // Keep the login page locked until Next swaps to the dashboard.
-    return;
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (authActionLockRef.current || isBusy) return;
+    authActionLockRef.current = true;
+
     setError(null);
     setSuccess(null);
     setLoadingAction("form");
+    let shouldUnlock = true;
 
     try {
       if (mode === "signin") {
@@ -50,6 +62,7 @@ export default function LoginPage() {
         }
 
         router.push("/dashboard");
+        shouldUnlock = false;
         return;
       }
 
@@ -65,7 +78,10 @@ export default function LoginPage() {
       setMode("signin");
       setPassword("");
     } finally {
-      setLoadingAction(null);
+      if (shouldUnlock) {
+        authActionLockRef.current = false;
+        setLoadingAction(null);
+      }
     }
   }
 
@@ -90,12 +106,14 @@ export default function LoginPage() {
           type="button"
           onClick={handleDemoSignIn}
           disabled={isBusy}
-          className="mt-6 w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+          className={`mt-6 w-full rounded-xl bg-gray-900 py-3 text-sm font-medium text-white transition hover:bg-gray-700 disabled:cursor-not-allowed dark:bg-white dark:text-black dark:hover:bg-gray-200 ${
+            isDemoLoading ? "opacity-60" : ""
+          }`}
         >
-          {loadingAction === "demo" ? "Opening demo..." : "Continue as Demo"}
+          {isDemoLoading ? "Opening demo..." : "Continue as Demo"}
         </button>
 
-        {loadingAction === "demo" && (
+        {isDemoLoading && (
           <p className="mt-3 text-center text-sm text-gray-500">
             Verifying demo session...
           </p>
@@ -143,9 +161,11 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={isBusy}
-            className="mt-6 w-full rounded-xl border border-gray-200 bg-white py-3 text-sm font-medium text-gray-900 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800"
+            className={`mt-6 w-full rounded-xl border border-gray-200 bg-white py-3 text-sm font-medium text-gray-900 transition hover:bg-gray-50 disabled:cursor-not-allowed dark:border-white/10 dark:bg-zinc-900 dark:text-white dark:hover:bg-zinc-800 ${
+              isFormLoading ? "opacity-60" : ""
+            }`}
           >
-            {loadingAction === "form"
+            {isFormLoading
               ? "Please wait..."
               : mode === "signin"
                 ? "Continue"

@@ -16,6 +16,8 @@ export async function signUp(email: string, password: string) {
 }
 
 export async function signIn(email: string, password: string) {
+  await supabase.auth.signOut();
+
   return supabase.auth.signInWithPassword({
     email,
     password,
@@ -35,6 +37,8 @@ export async function signInAsDemo() {
   if (!response.ok || !payload.session) {
     throw new Error(payload.error ?? "Unable to start demo session");
   }
+
+  await supabase.auth.signOut();
 
   const result = await supabase.auth.setSession({
     access_token: payload.session.access_token,
