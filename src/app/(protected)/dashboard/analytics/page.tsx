@@ -77,6 +77,10 @@ export default function AnalyticsPage() {
           dailyScores.findIndex((day) => day.date === strongestDay.date)
         ]
       : "–";
+  const strongestDayPercentage =
+    strongestDay && strongestDay.totalHabits > 0 && !allDailyScoresZero
+      ? Math.round((strongestDay.completedCount / strongestDay.totalHabits) * 100)
+      : 0;
 
   const weeklyPercentage = getWeeklyCompletionPercentage(habits, logs);
 
@@ -113,65 +117,107 @@ export default function AnalyticsPage() {
 
   return (
     <PageShell tone="analytics" className="space-y-0 !p-3 md:!p-4">
-      <DashboardCard className="mr-auto w-fit max-w-full overflow-hidden border-gray-100/70 bg-white shadow-sm">
-        <header className="space-y-1 border-b border-gray-100 px-4 py-3.5 md:px-5 md:py-4">
+      <DashboardCard className="mr-auto w-fit max-w-full overflow-hidden border-gray-100/50 bg-white shadow-sm">
+        <header className="space-y-1 border-b border-gray-100/60 px-4 py-3.5 md:px-5 md:py-4">
           <h1 className="text-2xl font-semibold tracking-normal text-gray-950 md:text-3xl">
-            Weekly Analytics
+            Insights
           </h1>
 
           <p className="text-sm leading-5 text-gray-500">
-            Track consistency and execution patterns.
+            Patterns from your recent execution.
           </p>
         </header>
 
-        <section className="grid border-b border-gray-100 divide-y divide-gray-100 md:grid-cols-3 md:divide-x md:divide-y-0">
+        <section className="grid border-b border-gray-100/60 divide-y divide-gray-100/60 md:grid-cols-3 md:divide-x md:divide-y-0">
           <div className="p-4 md:px-5 md:py-4">
             <p className="inline-flex rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-blue-600">
               📈 Consistency
             </p>
 
-            <div className="mt-2 flex flex-wrap items-end gap-x-3 gap-y-1">
-              <p className="text-3xl font-semibold leading-none text-gray-950 md:text-[34px]">
-                {weeklyPercentage}%
-              </p>
+            <div className="mt-2 flex items-end justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-2xl font-semibold leading-none text-gray-950 md:text-[28px]">
+                  {weeklyPercentage}%
+                </p>
 
-              <p className="pb-0.5 text-2xl font-semibold leading-none tracking-normal text-blue-500/80">
-                {trendGlyphs}
-              </p>
+                <p className="mt-2 text-xs text-gray-500">
+                  This week{" "}
+                  <span className="font-medium text-gray-700">
+                    {latestTrend?.completedCount ?? 0}/
+                    {latestTrend?.totalPossibleCompletions ?? 0}
+                  </span>
+                </p>
+              </div>
+
+              <div className="shrink-0 text-right">
+                <p className="text-2xl font-semibold leading-none tracking-normal text-blue-500/80">
+                  {trendGlyphs}
+                </p>
+
+                <p className="mt-2 text-xs text-gray-500">Last four weeks</p>
+              </div>
             </div>
-
-            <p className="mt-2 text-xs text-gray-500">
-              This week{" "}
-              <span className="font-medium text-gray-700">
-                {latestTrend?.completedCount ?? 0}/
-                {latestTrend?.totalPossibleCompletions ?? 0}
-              </span>{" "}
-              · Last four weeks
-            </p>
           </div>
 
-          <div className="p-4 md:px-5 md:py-4">
-            <p className="inline-flex rounded-full border border-yellow-100/80 bg-yellow-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-yellow-700">
-              💪 Strong
+          <div className="px-4 py-5 text-left md:px-5 md:py-4 md:text-center">
+            <p className="inline-flex rounded-full border border-yellow-100/80 bg-yellow-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-yellow-700 md:mx-auto">
+              💪 Strongest Day
             </p>
 
-            <p className="mt-2 truncate text-2xl font-semibold leading-none text-gray-950 md:text-[28px]">
-              {strongestDayLabel}
-            </p>
+            <div className="mt-3 flex items-center justify-between gap-6 md:justify-center">
+              <div className="min-w-0 text-left md:text-center">
+                <p className="truncate text-xl font-semibold leading-none text-gray-950 md:text-2xl">
+                  {strongestDayLabel}
+                </p>
 
-            <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
-              {strongestDay
-                ? `${strongestDay.completedCount}/${strongestDay.totalHabits} habits`
-                : "No data"}
-            </p>
+                <p className="mt-1 text-[10px] text-gray-400 md:text-xs">
+                  {strongestDay
+                    ? `${strongestDay.completedCount}/${strongestDay.totalHabits} habits`
+                    : "No data"}
+                </p>
+              </div>
+
+              <div className="relative h-12 w-12 shrink-0 text-amber-600/70">
+                <svg
+                  className="h-12 w-12 -rotate-90"
+                  viewBox="0 0 48 48"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="24"
+                    cy="24"
+                    r="19"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="text-amber-100"
+                  />
+                  <circle
+                    cx="24"
+                    cy="24"
+                    r="19"
+                    fill="none"
+                    pathLength="100"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeDasharray={`${strongestDayPercentage} 100`}
+                  />
+                </svg>
+
+                <span className="absolute inset-0 flex items-center justify-center text-[9px] font-medium leading-none text-amber-700/70">
+                  {strongestDayPercentage}%
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="p-4 md:px-5 md:py-4">
             <p className="inline-flex rounded-full border border-gray-200/80 bg-gray-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-gray-500">
-              🥀 Weak
+              🥀 Needs Attention
             </p>
 
-            <p className="mt-2 truncate text-2xl font-semibold leading-none text-gray-950 md:text-[28px]">
+            <p className="mt-2 truncate text-xl font-semibold leading-none text-gray-950 md:text-2xl">
               {needsAttentionHabit ? needsAttentionHabit.habitName : "–"}
             </p>
 
@@ -184,15 +230,11 @@ export default function AnalyticsPage() {
         </section>
 
         <section>
-          <div className="grid divide-y divide-gray-100 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
+          <div className="grid divide-y divide-gray-100/60 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
             <div className="flex min-h-44 flex-col p-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-[15px] font-semibold leading-5 text-gray-950">
-                  Daily Rhythm
-                </h2>
-
-                <p className="inline-flex rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-normal text-blue-600">
-                  Rhythm
+              <div className="flex items-center justify-center">
+                <p className="inline-flex rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[11px] font-medium tracking-normal text-blue-600">
+                  📊 Daily Rhythm
                 </p>
               </div>
 
@@ -234,25 +276,13 @@ export default function AnalyticsPage() {
             </div>
 
             <div className="min-w-0 p-4">
-              <div className="mb-3 flex items-start gap-3">
-                <div>
-                  <h2 className="text-[15px] font-semibold leading-5 text-gray-950">
-                    90-Day Memory
-                  </h2>
-
-                  <p className="text-xs text-gray-500">
-                    {hasNinetyDayHistory
-                      ? "Recent execution history"
-                      : "Generated rhythm preview"}
-                  </p>
-                </div>
-
-                <p className="inline-flex shrink-0 rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[10px] font-medium uppercase tracking-normal text-blue-600">
-                  90 days
+              <div className="flex items-center justify-center">
+                <p className="inline-flex rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[11px] font-medium tracking-normal text-blue-600">
+                  🗓️ 90-Day Memory
                 </p>
               </div>
 
-              <div className="overflow-x-auto pb-1">
+              <div className="overflow-x-auto pb-1 pt-4 text-center">
                 <div className="mx-auto flex w-fit gap-2 pr-2">
                   {heatmapDateGroups.map((dateGroup, groupIndex) => (
                     <div
