@@ -53,7 +53,7 @@ export default function DashboardPage() {
   const weeklyHabitPercentage = getWeeklyCompletionPercentage(habits, logs);
 
   return (
-    <PageShell tone="default" className="space-y-4 !p-3 md:!p-4">
+    <PageShell tone="default" className="space-y-1 !p-3 md:!p-4">
       <TodayHeader
         greeting={getGreeting()}
         reminder={personalization.personalReminder}
@@ -62,7 +62,7 @@ export default function DashboardPage() {
         onSaveCycleRhythm={updateCycleRhythm}
       />
 
-      <section className="-mt-1 grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_auto] lg:items-stretch">
+      <section className="-mt-4 grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:grid-rows-[auto_auto] lg:items-stretch">
         <div className="order-1 h-full lg:col-start-1 lg:row-start-1">
           <WeeklyStoryCard
             weeklyStory={personalization.weeklyStory}

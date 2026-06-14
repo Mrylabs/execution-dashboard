@@ -107,14 +107,14 @@ export default function QuickDumpCard() {
 
   return (
     <DashboardCard
-      className="h-full overflow-hidden border-gray-100 bg-white p-2.5 shadow-sm md:col-span-3 md:p-2.5 lg:col-span-4"
+      className="h-full overflow-hidden border-gray-100/70 bg-white p-2.5 shadow-sm md:col-span-3 md:p-2.5 lg:col-span-4"
     >
       <div className="mb-2 flex items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold text-gray-800">
+        <h2 className="text-[15px] font-semibold leading-5 text-gray-800">
           Quick Dump
         </h2>
 
-        <p className="inline-flex shrink-0 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal text-gray-600">
+        <p className="inline-flex shrink-0 rounded-full border border-gray-200/80 bg-gray-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-gray-500">
           Capture
         </p>
       </div>

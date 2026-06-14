@@ -16,21 +16,20 @@ export default function FocusThreeCard({
 
   return (
     <DashboardCard
-      className="h-full overflow-hidden border-amber-100/65 bg-amber-50/60 px-4 py-3.5 shadow-sm ring-1 ring-amber-100/55 md:col-span-6 md:px-5 md:py-4"
+      className="h-full overflow-hidden border-amber-100/45 bg-amber-50/60 px-4 py-3.5 shadow-sm ring-1 ring-amber-100/35 md:col-span-6 md:px-5 md:py-4"
     >
       <div className="mb-2 flex items-center justify-between gap-3">
         <h2 className="text-lg font-semibold text-gray-950 md:text-xl">
           Focus 3
         </h2>
 
-        <p className="inline-flex shrink-0 rounded-full border border-amber-100 bg-amber-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal text-amber-700">
+        <p className="inline-flex shrink-0 rounded-full border border-amber-100/80 bg-amber-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-amber-600">
           {activeTaskCount} active
         </p>
       </div>
 
       <div className="mb-2.5 max-w-lg text-xs leading-5 text-amber-950/55">
-        Three deliberate moves. Enough to create momentum, small enough to stay
-        human.
+        Three priorities. No noise.
       </div>
 
       <ol className="space-y-1.5">
@@ -43,7 +42,7 @@ export default function FocusThreeCard({
               {index + 1}
             </span>
 
-            <span className="pt-0.5 text-sm font-medium leading-6 text-gray-950 md:text-base">
+            <span className="pt-0.5 text-sm font-medium leading-6 text-gray-950">
               {task}
             </span>
           </li>

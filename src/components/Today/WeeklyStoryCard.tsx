@@ -40,12 +40,12 @@ export default function WeeklyStoryCard({
 
   return (
     <DashboardCard
-      className="h-full overflow-hidden border-blue-100/55 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/45 md:col-span-6 md:px-5 md:py-4 lg:col-span-12"
+      className="h-full overflow-hidden border-blue-100/40 bg-blue-50/55 px-4 py-3.5 shadow-sm ring-1 ring-blue-100/30 md:col-span-6 md:px-5 md:py-4 lg:col-span-12"
     >
       <div className="flex flex-col justify-between gap-4">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <p className="inline-flex rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-normal text-blue-700">
+            <p className="inline-flex rounded-full border border-blue-100/80 bg-blue-50 px-2 py-0.5 text-[11px] font-medium uppercase tracking-normal text-blue-600">
               This week
             </p>
 
@@ -83,7 +83,7 @@ export default function WeeklyStoryCard({
               <textarea
                 value={headlineDraft}
                 onChange={(event) => setHeadlineDraft(event.target.value)}
-                className="min-h-20 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-2xl font-semibold leading-snug text-blue-950 outline-none focus:border-blue-200 md:text-3xl"
+                className="min-h-20 w-full max-w-2xl resize-none rounded-2xl border border-blue-100 bg-white/70 px-4 py-3 text-[22px] font-semibold leading-snug text-blue-950 outline-none focus:border-blue-200 md:text-[28px]"
                 aria-label="Weekly story headline"
               />
               <textarea
@@ -95,28 +95,24 @@ export default function WeeklyStoryCard({
             </div>
           ) : (
             <>
-              <p className="max-w-2xl text-2xl font-semibold leading-snug text-blue-950 md:text-3xl">
+              <p className="max-w-2xl text-[22px] font-semibold leading-snug text-blue-950 md:text-[28px]">
                 {weeklyStory.headline}
               </p>
 
               <p className="max-w-xl text-sm leading-6 text-blue-950/65">
-                Consistency is at{" "}
-                <span className="font-semibold text-blue-950">
-                  {weeklyHabitPercentage}%
-                </span>
-                . {weeklyStory.note}
+                You&rsquo;re halfway through the rhythm. Protect the basics,
+                then choose one clean push.
               </p>
             </>
           )}
         </div>
 
         <div className="max-w-xl">
-          <div className="mb-1.5 flex items-center justify-between text-xs font-medium uppercase tracking-normal text-blue-900/55">
-            <span>Weekly rhythm</span>
-            <span>{weeklyHabitPercentage}%</span>
+          <div className="mb-1.5 text-xs font-medium text-blue-900/50">
+            Weekly rhythm &middot; {weeklyHabitPercentage}%
           </div>
 
-          <div className="h-2 overflow-hidden rounded-full bg-white/80">
+          <div className="h-1.5 overflow-hidden rounded-full bg-white/80">
             <div
               className="h-full rounded-full bg-blue-500/80 transition-all"
               style={{ width: `${weeklyHabitPercentage}%` }}
