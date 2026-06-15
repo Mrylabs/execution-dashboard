@@ -14,7 +14,7 @@ export default function HabitsSnapshotCard({
 
   return (
     <DashboardCard
-      className="h-full overflow-hidden border-gray-100/70 bg-white p-2.5 shadow-sm md:col-span-3 md:p-2.5 lg:col-span-4 border-emerald-100/80 bg-emerald-50/40"
+      className="h-full overflow-hidden border-gray-100/80 bg-white p-3 shadow-sm ring-1 ring-gray-100/50 md:p-3"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex flex-col">
@@ -32,7 +32,7 @@ export default function HabitsSnapshotCard({
         </div>
 
         <div
-          className="relative h-16 w-16 shrink-0 rounded-full"
+          className="relative mt-2 h-16 w-16 shrink-0 rounded-full"
           style={{
             background: `conic-gradient(rgb(16 185 129 / 0.8) ${percentage}%, rgb(220 252 231) 0)`,
           }}

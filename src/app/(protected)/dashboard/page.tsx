@@ -53,7 +53,7 @@ export default function DashboardPage() {
   const weeklyHabitPercentage = getWeeklyCompletionPercentage(habits, logs);
 
   return (
-    <PageShell tone="default" className="space-y-1 !p-3 md:!p-4">
+    <PageShell tone="default" className="ml-3 mt-3 max-w-[54rem] space-y-1 !p-3 md:ml-4 md:mt-4 md:!p-4">
       <TodayHeader
         greeting={getGreeting()}
         reminder={personalization.personalReminder}
@@ -78,21 +78,23 @@ export default function DashboardPage() {
           />
         </div>
 
-        <div className="order-3 grid gap-3 sm:grid-cols-2 lg:col-start-1 lg:row-start-2">
-          <div className="h-full">
-            <HabitsSnapshotCard
-              completedToday={completedTodayHabitIds.size}
-              totalHabits={habits.length}
-            />
-          </div>
+        <div className="order-3 h-full lg:col-span-2 lg:row-start-2">
+          <div className="grid h-full gap-3 md:grid-cols-3 md:items-stretch lg:grid-cols-[1.2fr_0.9fr_0.65fr]">
+            <div className="h-full">
+              <QuickDumpCard />
+            </div>
 
-          <div className="h-full">
-            <CompletedTodayCard completedCount={completedTaskCount} />
-          </div>
-        </div>
+            <div className="h-full">
+              <HabitsSnapshotCard
+                completedToday={completedTodayHabitIds.size}
+                totalHabits={habits.length}
+              />
+            </div>
 
-        <div className="order-4 h-full lg:col-start-2 lg:row-start-2">
-          <QuickDumpCard />
+            <div className="h-full">
+              <CompletedTodayCard completedCount={completedTaskCount} />
+            </div>
+          </div>
         </div>
       </section>
     </PageShell>
