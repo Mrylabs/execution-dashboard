@@ -117,7 +117,7 @@ export default function AnalyticsPage() {
 
   return (
     <PageShell tone="analytics" className="space-y-0 !p-3 md:!p-4">
-      <DashboardCard className="mr-auto w-fit max-w-full overflow-hidden border-gray-100/50 bg-white shadow-sm">
+      <DashboardCard className="mr-auto w-full max-w-full overflow-hidden border-gray-100/50 bg-white shadow-sm md:w-fit">
         <header className="space-y-1 border-b border-gray-100/60 px-4 py-3.5 md:px-5 md:py-4">
           <h1 className="text-2xl font-semibold tracking-normal text-gray-950 md:text-3xl">
             Insights

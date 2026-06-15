@@ -19,7 +19,7 @@ export default function PageShell({
 }: PageShellProps) {
   return (
     <section
-      className={`mr-auto max-w-5xl space-y-6 rounded-3xl p-4 md:p-6 ${toneClasses[tone]} ${className}`}
+      className={`mr-auto w-full max-w-5xl space-y-6 rounded-3xl p-4 md:p-6 ${toneClasses[tone]} ${className}`}
     >
       {children}
     </section>

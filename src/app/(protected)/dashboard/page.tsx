@@ -53,7 +53,7 @@ export default function DashboardPage() {
   const weeklyHabitPercentage = getWeeklyCompletionPercentage(habits, logs);
 
   return (
-    <PageShell tone="default" className="ml-3 mt-3 max-w-[54rem] space-y-1 !p-3 md:ml-4 md:mt-4 md:!p-4">
+    <PageShell tone="default" className="mt-3 max-w-[54rem] space-y-1 !p-3 md:ml-4 md:mt-4 md:!p-4">
       <TodayHeader
         greeting={getGreeting()}
         reminder={personalization.personalReminder}
