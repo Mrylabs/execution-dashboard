@@ -31,10 +31,9 @@ export default function DashboardLayout({
 
   const navLinks = [
     { href: "/dashboard", label: "Today" },
-    { href: "/dashboard/tasks", label: "Tasks" },
-    { href: "/dashboard/habits", label: "Habits" },
-    { href: "/dashboard/jobs", label: "Jobs" },
-    { href: "/dashboard/analytics", label: "Insight" },
+    { href: "/dashboard/execution", label: "Execution" },
+    { href: "/dashboard/jobs", label: "Job Radar" },
+    { href: "/dashboard/analytics", label: "Insights" },
   ];
 
   const navSections = [
@@ -45,14 +44,13 @@ export default function DashboardLayout({
     {
       label: "Workflow",
       links: [
-        { href: "/dashboard/tasks", label: "Tasks" },
-        { href: "/dashboard/habits", label: "Habits" },
-        { href: "/dashboard/jobs", label: "Jobs" },
+        { href: "/dashboard/execution", label: "Execution" },
+        { href: "/dashboard/jobs", label: "Job Radar" },
       ],
     },
     {
       label: "Insight",
-      links: [{ href: "/dashboard/analytics", label: "Insight" }],
+      links: [{ href: "/dashboard/analytics", label: "Insights" }],
     },
   ];
 
